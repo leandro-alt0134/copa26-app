@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f9f4d"/>
+      <stop offset="0.45" stop-color="#0a7c3c"/>
+      <stop offset="1" stop-color="#075c2f"/>
+    </linearGradient>
+    <pattern id="stripes" width="240" height="1080" patternUnits="userSpaceOnUse">
+      <rect width="120" height="1080" fill="rgba(255,255,255,0.045)"/>
+      <rect x="120" width="120" height="1080" fill="rgba(0,0,0,0.045)"/>
+    </pattern>
+    <filter id="blurGlow">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <rect width="1920" height="1080" fill="url(#stripes)" opacity="0.9"/>
+  <rect x="82" y="82" width="1756" height="916" rx="18" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="8"/>
+  <line x1="960" y1="82" x2="960" y2="998" stroke="#ffffff" stroke-opacity="0.22" stroke-width="8"/>
+  <circle cx="960" cy="540" r="142" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="8"/>
+  <circle cx="960" cy="540" r="10" fill="#ffffff" fill-opacity="0.25"/>
+  <rect x="82" y="330" width="260" height="420" fill="none" stroke="#ffffff" stroke-opacity="0.2" stroke-width="8"/>
+  <rect x="1578" y="330" width="260" height="420" fill="none" stroke="#ffffff" stroke-opacity="0.2" stroke-width="8"/>
+  <rect x="82" y="420" width="90" height="240" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="8"/>
+  <rect x="1748" y="420" width="90" height="240" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="8"/>
+  <circle cx="320" cy="540" r="10" fill="#ffffff" fill-opacity="0.22"/>
+  <circle cx="1600" cy="540" r="10" fill="#ffffff" fill-opacity="0.22"/>
+  <circle cx="160" cy="140" r="210" fill="#00c2ff" opacity="0.10" filter="url(#blurGlow)"/>
+  <circle cx="1760" cy="200" r="260" fill="#ffdf3d" opacity="0.12" filter="url(#blurGlow)"/>
+  <circle cx="980" cy="1030" r="290" fill="#174cff" opacity="0.10" filter="url(#blurGlow)"/>
+</svg>

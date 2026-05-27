@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palpites - Copa do Mundo 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar py-3 mb-4">
+    <div class="container d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <img src="assets/copa-2026-logo-white.svg" class="brand-logo" alt="Ícone da Copa do Mundo FIFA 2026">
+        <span class="navbar-brand text-white titulo mb-0">Copa do Mundo 2026</span>
+      </div>
+      <div class="nav-actions d-flex align-items-center gap-2 flex-wrap">
+        <a href="index.html" class="nav-link-custom">Seleções</a>
+        <a href="grupos.html" class="nav-link-custom">Grupos e chaveamento</a>
+        <a href="confrontos.html" class="nav-link-custom">Confrontos</a>
+        <a href="palpites.html" class="nav-link-custom active">Palpites</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container pb-5">
+    <!-- Hero / Introdução -->
+    <section class="hero mb-4">
+      <div class="row align-items-center g-0">
+        <div class="col-lg-8 hero-content p-4 p-md-5 position-relative">
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <span class="hero-badge">🎮 Entretenimento</span>
+            <div class="countdown-widget" id="countdown" aria-label="Contagem regressiva para a abertura da Copa">
+              <span class="countdown-label">Abertura em:</span>
+              <span class="countdown-time"><strong id="countdown-dias">00</strong>d</span>
+              <span class="countdown-time"><strong id="countdown-horas">00</strong>h</span>
+              <span class="countdown-time"><strong id="countdown-minutos">00</strong>m</span>
+              <span class="countdown-time"><strong id="countdown-segundos">00</strong>s</span>
+            </div>
+          </div>
+          <h1>Palpite da Partida</h1>
+          <p>Responda algumas perguntas rápidas sobre o confronto e veja qual resultado combina mais com a sua análise. É só diversão, não previsão científica.</p>
+        </div>
+        <div class="col-lg-4 text-center p-4 p-md-5 position-relative">
+          <img src="assets/copa-2026-logo.svg" class="hero-logo" alt="Logo da Copa do Mundo FIFA 2026">
+        </div>
+      </div>
+    </section>
+
+    <!-- AdSense Slot 1: Acima do seletor -->
+    <section class="ad-slot mb-4" aria-label="Espaço para anúncio">
+      <span class="ad-slot__label">Publicidade</span>
+      <div class="ad-slot__placeholder">Espaço estratégico para Google AdSense — banner horizontal superior</div>
+    </section>
+
+    <!-- Seleção do Confronto -->
+    <section class="match-picker-card p-3 p-md-4 mb-4" id="match-picker-container">
+      <h2 class="h5 text-white mb-3">Escolha um confronto da Fase de Grupos</h2>
+      <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto text-center">
+          <select id="seletor-partida" class="form-select w-100 mb-3" aria-label="Escolher confronto">
+            <option value="" disabled selected>Carregando partidas...</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Card Central do Confronto (Inicialmente invisível, ativado via JS) -->
+      <div id="secao-confronto-detalhe" class="d-none mt-3">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10 col-lg-8">
+            <div class="match-card-vs" id="match-card-vs-element">
+              <!-- Seleção A -->
+              <div class="match-card-team">
+                <div class="match-card-escudo-wrapper">
+                  <img id="card-selecao-a-escudo" src="" alt="Escudo Seleção A" class="match-card-escudo" onerror="this.src='assets/copa-2026-logo-white.svg'">
+                </div>
+                <h3 class="match-card-team-name" id="card-selecao-a-nome">Seleção A</h3>
+              </div>
+
+              <!-- Meio - VS -->
+              <div class="match-card-center-vs">
+                <span class="match-card-badge" id="card-grupo-rodada">Grupo X — Rodada Y</span>
+                <span class="match-card-vs-text">VS</span>
+              </div>
+
+              <!-- Seleção B -->
+              <div class="match-card-team">
+                <div class="match-card-escudo-wrapper">
+                  <img id="card-selecao-b-escudo" src="" alt="Escudo Seleção B" class="match-card-escudo" onerror="this.src='assets/copa-2026-logo-white.svg'">
+                </div>
+                <h3 class="match-card-team-name" id="card-selecao-b-nome">Seleção B</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção do Questionário (Inicialmente oculta) -->
+    <section id="secao-questionario" class="d-none mb-4">
+      <h2 class="h4 text-white mb-3">Responda às 5 perguntas de análise</h2>
+      <div id="quiz-questions-container" class="quiz-section">
+        <!-- Perguntas injetadas dinamicamente via JS -->
+      </div>
+      <div class="text-center mt-4">
+        <button type="button" id="btn-ver-sugestao" class="btn btn-primary btn-lg px-5 py-3" disabled>
+          Ver sugestão de palpite
+        </button>
+      </div>
+    </section>
+
+    <!-- AdSense Slot 2: Entre o questionário e o resultado -->
+    <section class="ad-slot mb-4" aria-label="Espaço para anúncio">
+      <span class="ad-slot__label">Publicidade</span>
+      <div class="ad-slot__placeholder">Espaço para Google AdSense — anúncio intermediário</div>
+    </section>
+
+    <!-- Resultado Sugerido e Palpite Final (Inicialmente oculto) -->
+    <section id="secao-resultado-sugerido" class="d-none mb-4">
+      <div class="suggestion-card">
+        <div class="suggestion-header">
+          <h2 class="h5 text-white-50 uppercase mb-1">Análise calculada</h2>
+          <div class="suggestion-trend" id="sugestao-resultado-tende">Seu palpite tende para: [Resultado]</div>
+          <p class="mt-3 text-white-50 mb-0" id="sugestao-descricao">Descrição da análise baseada nas respostas.</p>
+        </div>
+
+        <!-- Pontuação detalhada -->
+        <div class="text-center mt-4">
+          <span class="small text-white-50">Distribuição de pontos da sua análise:</span>
+          <div class="suggestion-scores-grid">
+            <div class="suggestion-score-badge" id="badge-pontos-a">
+              <span id="ponto-selecao-a-nome">Seleção A</span>: 
+              <span class="suggestion-score-num" id="ponto-selecao-a-val">0</span>
+            </div>
+            <div class="suggestion-score-badge" id="badge-pontos-empate">
+              <span>Empate</span>: 
+              <span class="suggestion-score-num" id="ponto-empate-val">0</span>
+            </div>
+            <div class="suggestion-score-badge" id="badge-pontos-b">
+              <span id="ponto-selecao-b-nome">Seleção B</span>: 
+              <span class="suggestion-score-num" id="ponto-selecao-b-val">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Palpite Final do Usuário -->
+        <div class="user-prediction-form mt-5">
+          <h3 class="h5 text-white text-center mb-3">Registrar seu palpite final</h3>
+          <form id="form-palpite-final">
+            <p class="text-center text-white-50 small mb-2">Quem você acha que vencerá de fato?</p>
+            <div class="prediction-options-group">
+              <div>
+                <input type="radio" name="palpite_final_opcao" id="radio-final-a" class="prediction-radio-input" value="" required>
+                <label for="radio-final-a" class="prediction-radio-label" id="label-radio-final-a">Vitória Seleção A</label>
+              </div>
+              <div>
+                <input type="radio" name="palpite_final_opcao" id="radio-final-empate" class="prediction-radio-input" value="Empate" required>
+                <label for="radio-final-empate" class="prediction-radio-label">Empate</label>
+              </div>
+              <div>
+                <input type="radio" name="palpite_final_opcao" id="radio-final-b" class="prediction-radio-input" value="" required>
+                <label for="radio-final-b" class="prediction-radio-label" id="label-radio-final-b">Vitória Seleção B</label>
+              </div>
+            </div>
+
+            <p class="text-center text-white-50 small mb-2 mt-4">Qual será o placar da partida?</p>
+            <div class="score-inputs-wrapper">
+              <span class="score-team-label text-truncate" id="label-placar-a">Seleção A</span>
+              <input type="number" id="placar-a" class="score-number-input" min="0" max="99" required aria-label="Placar Seleção A">
+              <span class="score-divider">x</span>
+              <input type="number" id="placar-b" class="score-number-input" min="0" max="99" required aria-label="Placar Seleção B">
+              <span class="score-team-label team-b text-truncate" id="label-placar-b">Seleção B</span>
+            </div>
+
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary px-5 py-2" style="border-radius: 12px;">
+                Salvar meu palpite
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- AdSense Slot 3: Antes do histórico -->
+    <section class="ad-slot mb-4" aria-label="Espaço para anúncio">
+      <span class="ad-slot__label">Publicidade</span>
+      <div class="ad-slot__placeholder">Espaço para Google AdSense — anúncio inferior antes do histórico</div>
+    </section>
+
+    <!-- Histórico de Palpites -->
+    <section class="history-section-card" id="secao-historico">
+      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h2 class="h5 text-white mb-0">🏆 Meus palpites salvos</h2>
+        <div class="d-flex gap-2 align-items-center">
+          <button type="button" id="btn-whatsapp-palpites" class="btn-whatsapp-share" style="display: none;">
+            🟢 Compartilhar no WhatsApp
+          </button>
+          <button type="button" id="btn-baixar-palpites" class="btn btn-sm btn-outline-light px-3 py-1" style="border-radius: 10px; display: none;">
+            📥 Baixar TXT
+          </button>
+          <button type="button" id="btn-limpar-palpites" class="btn btn-sm btn-outline-danger px-3 py-1" style="border-radius: 10px; display: none;">
+            Limpar palpites
+          </button>
+        </div>
+      </div>
+
+      <div class="row g-3" id="historico-palpites-lista">
+        <!-- Palpites renderizados via JS -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-4">
+    <div class="container small d-flex flex-column flex-md-row justify-content-between gap-2">
+      <span>Projeto demonstrativo — Copa do Mundo 2026</span>
+      <span>Salvo localmente no navegador via <strong>localStorage</strong></span>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Voltar para o topo">↑</button>
+
+  <script src="js/palpites.js"></script>
+  <script src="js/common.js"></script>
+</body>
+</html>
