@@ -65,3 +65,27 @@ export function limparTodosPalpites() {
     return false;
   }
 }
+
+const MATCHES_STORAGE_KEY = "copa2026_partidas_atualizadas";
+
+export function carregarPartidasAtualizadas() {
+  try {
+    const dados = localStorage.getItem(MATCHES_STORAGE_KEY);
+    if (!dados) return null;
+    return JSON.parse(dados);
+  } catch (err) {
+    console.error("Erro ao carregar partidas atualizadas do localStorage:", err);
+    return null;
+  }
+}
+
+export function salvarPartidasAtualizadas(partidas) {
+  try {
+    localStorage.setItem(MATCHES_STORAGE_KEY, JSON.stringify(partidas));
+    return true;
+  } catch (err) {
+    console.error("Erro ao salvar partidas atualizadas no localStorage:", err);
+    return false;
+  }
+}
+

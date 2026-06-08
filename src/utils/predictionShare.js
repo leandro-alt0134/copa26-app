@@ -64,14 +64,29 @@ export function desenharImagemArredondada(ctx, img, x, y, width, height, radius)
   ctx.restore();
 }
 
+// Função auxiliar essencial para evitar quebra de layout de texto corrido no Canvas
+function desenharTextoComQuebra(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  let currentY = y;
+
+  for (let n = 0; n < words.length; n++) {
+    let testLine = line + words[n] + ' ';
+    let metrics = ctx.measureText(testLine);
+    let testWidth = metrics.width;
+    if (testWidth > maxWidth && n > 0) {
+      ctx.fillText(line, x, currentY);
+      line = words[n] + ' ';
+      currentY += lineHeight;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line, x, currentY);
+}
+
 /**
- * Desenha o Card no Canvas.
- * @param {CanvasRenderingContext2D} ctx 
- * @param {HTMLImageElement|null} imgA 
- * @param {HTMLImageElement|null} imgB 
- * @param {Object} palpite 
- * @param {Array} selecoes 
- * @param {string} layout 'square' (800x800) ou 'stories' (1080x1920)
+ * Desenha o Card no Canvas Otimizado para UI/UX
  */
 export function desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout = 'square') {
   const isStories = layout === 'stories';
@@ -94,44 +109,45 @@ export function desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout = 'sq
   ctx.fillRect(0, 0, width, height);
 
   // 2. Linhas do Campo (efeito futebol)
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+  ctx.save();
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
   ctx.lineWidth = isStories ? 5 : 3;
 
   if (!isStories) {
-    ctx.strokeRect(150, 0, 500, 180);
-    ctx.strokeRect(300, 0, 200, 60);
+    ctx.strokeRect(150, 0, 500, 160);
+    ctx.strokeRect(300, 0, 200, 50);
     ctx.beginPath();
     ctx.moveTo(40, 400);
     ctx.lineTo(760, 400);
     ctx.stroke();
     ctx.beginPath();
-    ctx.arc(400, 400, 120, 0, Math.PI * 2);
+    ctx.arc(400, 400, 110, 0, Math.PI * 2);
     ctx.stroke();
-    ctx.strokeRect(150, 620, 500, 180);
-    ctx.strokeRect(300, 740, 200, 60);
+    ctx.strokeRect(150, 640, 500, 160);
+    ctx.strokeRect(300, 750, 200, 50);
   } else {
-    // Layout vertical: duas metades de campo no topo e base
-    ctx.strokeRect(200, 0, 680, 300);
-    ctx.strokeRect(200, 1620, 680, 300);
+    ctx.strokeRect(180, 0, 720, 280);
+    ctx.strokeRect(180, 1640, 720, 280);
     ctx.beginPath();
-    ctx.arc(540, 960, 200, 0, Math.PI * 2);
+    ctx.arc(540, 960, 180, 0, Math.PI * 2);
     ctx.stroke();
     ctx.beginPath();
     ctx.moveTo(50, 960);
     ctx.lineTo(1030, 960);
     ctx.stroke();
   }
+  ctx.restore();
 
   // 3. Moldura Dourada
   ctx.strokeStyle = '#FFD166';
   ctx.lineWidth = isStories ? 12 : 8;
   ctx.strokeRect(15, 15, width - 30, height - 30);
 
-  // 4. Cabeçalho
-  ctx.fillStyle = 'rgba(8, 41, 29, 0.9)';
+  // 4. Cabeçalho Dinâmico
+  ctx.fillStyle = 'rgba(8, 41, 29, 0.95)';
   ctx.strokeStyle = '#FFD166';
   ctx.lineWidth = 2.5;
-  const headerY = isStories ? 120 : 40;
+  const headerY = isStories ? 100 : 35; 
   const headerW = isStories ? 480 : 320;
   const headerX = (width - headerW) / 2;
   desenharRetanguloArredondado(ctx, headerX, headerY, headerW, 46, 12, true, true);
@@ -143,63 +159,74 @@ export function desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout = 'sq
 
   // Título do Palpite
   ctx.fillStyle = '#F8FAFC';
-  ctx.font = `900 ${isStories ? '48px' : '36px'} "Plus Jakarta Sans", sans-serif`;
-  const titleY = isStories ? 240 : 125;
+  ctx.font = `900 ${isStories ? '48px' : '34px'} "Plus Jakarta Sans", sans-serif`;
+  const titleY = isStories ? 210 : 115;
   ctx.fillText('MEU PALPITE OFICIAL 📝', width / 2, titleY);
 
   // Badge de Grupo e Rodada
-  const groupBadgeY = isStories ? 320 : 150;
+  const groupBadgeY = isStories ? 280 : 140;
   ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
   desenharRetanguloArredondado(ctx, (width - 260) / 2, groupBadgeY, 260, 32, 6, true, false);
   ctx.fillStyle = '#B7C9C0';
   ctx.font = '800 14px "Plus Jakarta Sans", sans-serif';
   ctx.fillText(`GRUPO ${palpite.grupo.toUpperCase()} — RODADA ${palpite.rodada}`, width / 2, groupBadgeY + 21);
 
-  // 5. Layout dos Escudos e Placar
-  const matchCardY = isStories ? 420 : 210;
-  const matchCardH = isStories ? 280 : 150;
-  
-  const escudoSize = isStories ? 160 : 120;
-  const cardWidth = isStories ? 200 : 150;
+  // 5. Layout dos Escudos e Placar (Ajustado Y para evitar empurrar o rodapé)
+  const matchCardY = isStories ? 370 : 195;
+  const matchCardH = isStories ? 260 : 130;
+  const escudoSize = isStories ? 150 : 105;
+  const cardWidth = isStories ? 190 : 135;
 
   // Lado A
   const sideAX = isStories ? 120 : 130;
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
   ctx.lineWidth = 2;
   desenharRetanguloArredondado(ctx, sideAX, matchCardY, cardWidth, matchCardH, 20, true, true);
   if (imgA) {
     desenharImagemArredondada(ctx, imgA, sideAX + (cardWidth - escudoSize) / 2, matchCardY + (matchCardH - escudoSize) / 2, escudoSize, escudoSize, 12);
   } else {
     const emojiA = codigoParaEmojiBandeira(selA?.codigo);
-    ctx.font = `${isStories ? '120px' : '90px'} "Segoe UI Emoji", sans-serif`;
+    ctx.font = `${isStories ? '110px' : '80px'} "Segoe UI Emoji", sans-serif`;
     ctx.fillText(emojiA, sideAX + cardWidth / 2, matchCardY + matchCardH / 2 + (isStories ? 35 : 25));
   }
   
-  // Nome A
+  // Nome A com Text-Shadow para não sumir nas linhas brancas
+  ctx.save();
   ctx.fillStyle = '#F8FAFC';
   ctx.font = '900 22px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText(palpite.selecaoA, sideAX + cardWidth / 2, matchCardY + matchCardH + 35);
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+  ctx.shadowBlur = 4;
+  ctx.fillText(palpite.selecaoA, sideAX + cardWidth / 2, matchCardY + matchCardH + 32);
+  ctx.restore();
 
   // Lado B
-  const sideBX = isStories ? width - 120 - cardWidth : 520;
+  const sideBX = isStories ? width - 120 - cardWidth : 535;
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
   desenharRetanguloArredondado(ctx, sideBX, matchCardY, cardWidth, matchCardH, 20, true, true);
   if (imgB) {
     desenharImagemArredondada(ctx, imgB, sideBX + (cardWidth - escudoSize) / 2, matchCardY + (matchCardH - escudoSize) / 2, escudoSize, escudoSize, 12);
   } else {
     const emojiB = codigoParaEmojiBandeira(selB?.codigo);
-    ctx.font = `${isStories ? '120px' : '90px'} "Segoe UI Emoji", sans-serif`;
+    ctx.font = `${isStories ? '110px' : '80px'} "Segoe UI Emoji", sans-serif`;
     ctx.fillText(emojiB, sideBX + cardWidth / 2, matchCardY + matchCardH / 2 + (isStories ? 35 : 25));
   }
 
-  // Nome B
-  ctx.fillText(palpite.selecaoB, sideBX + cardWidth / 2, matchCardY + matchCardH + 35);
+  // Nome B com Text-Shadow
+  ctx.save();
+  ctx.fillStyle = '#F8FAFC';
+  ctx.font = '900 22px "Plus Jakarta Sans", sans-serif';
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+  ctx.shadowBlur = 4;
+  ctx.fillText(palpite.selecaoB, sideBX + cardWidth / 2, matchCardY + matchCardH + 32);
+  ctx.restore();
 
   // Placar Caixa A e B
-  const placarAY = matchCardY + (matchCardH - (isStories ? 100 : 86)) / 2;
-  const placarW = isStories ? 72 : 64;
-  const placarH = isStories ? 100 : 86;
-  const placarGap = isStories ? 160 : 116;
+  const placarAY = matchCardY + (matchCardH - (isStories ? 96 : 76)) / 2;
+  const placarW = isStories ? 72 : 58;
+  const placarH = isStories ? 96 : 76;
+  const placarGap = isStories ? 160 : 110;
 
   ctx.fillStyle = '#061A12';
   ctx.strokeStyle = '#00C853';
@@ -209,8 +236,8 @@ export function desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout = 'sq
   const boxAX = (width / 2) - placarGap / 2 - placarW / 2;
   desenharRetanguloArredondado(ctx, boxAX, placarAY, placarW, placarH, 12, true, true);
   ctx.fillStyle = '#F8FAFC';
-  ctx.font = `900 ${isStories ? '64px' : '56px'} "Plus Jakarta Sans", sans-serif`;
-  ctx.fillText(palpite.placar.selecaoA.toString(), boxAX + placarW / 2, placarAY + (isStories ? 72 : 62));
+  ctx.font = `900 ${isStories ? '60px' : '48px'} "Plus Jakarta Sans", sans-serif`;
+  ctx.fillText(palpite.placar.selecaoA.toString(), boxAX + placarW / 2, placarAY + (isStories ? 68 : 54));
 
   // VS no meio
   ctx.fillStyle = '#FFD166';
@@ -222,90 +249,90 @@ export function desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout = 'sq
   const boxBX = (width / 2) + placarGap / 2 - placarW / 2;
   desenharRetanguloArredondado(ctx, boxBX, placarAY, placarW, placarH, 12, true, true);
   ctx.fillStyle = '#F8FAFC';
-  ctx.font = `900 ${isStories ? '64px' : '56px'} "Plus Jakarta Sans", sans-serif`;
-  ctx.fillText(palpite.placar.selecaoB.toString(), boxBX + placarW / 2, placarAY + (isStories ? 72 : 62));
+  ctx.font = `900 ${isStories ? '60px' : '48px'} "Plus Jakarta Sans", sans-serif`;
+  ctx.fillText(palpite.placar.selecaoB.toString(), boxBX + placarW / 2, placarAY + (isStories ? 68 : 54));
 
-  // 6. Bloco de Resultados e Análises
-  const detailsY = isStories ? 850 : 455;
-  const detailsW = isStories ? 880 : 540;
-  const detailsH = isStories ? 560 : 255;
+  // 6. Bloco de Resultados e Análises (Recalculado alturas e margens para caber perfeitamente no Square)
+  const detailsY = isStories ? 760 : 385; 
+  const detailsW = isStories ? 880 : 560;
+  const detailsH = isStories ? 640 : 225; // Reduzido ligeiramente no Square para dar respiro
   const detailsX = (width - detailsW) / 2;
 
-  ctx.fillStyle = 'rgba(15, 67, 48, 0.7)';
+  ctx.fillStyle = 'rgba(15, 67, 48, 0.8)';
   ctx.strokeStyle = 'rgba(0, 200, 83, 0.3)';
   ctx.lineWidth = 2.5;
   desenharRetanguloArredondado(ctx, detailsX, detailsY, detailsW, detailsH, 24, true, true);
 
   // Sub-badge: Tipo do Palpite
   ctx.fillStyle = palpite.tipoPalpite === 'detalhado' ? '#38BDF8' : '#FFD166';
-  desenharRetanguloArredondado(ctx, detailsX + 30, detailsY + 25, 140, 26, 6, true, false);
+  desenharRetanguloArredondado(ctx, detailsX + 25, detailsY + 20, 140, 26, 6, true, false);
   ctx.fillStyle = '#061A12';
   ctx.font = '900 11px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText(modoStr.toUpperCase(), detailsX + 100, detailsY + 42);
+  ctx.fillText(modoStr.toUpperCase(), detailsX + 95, detailsY + 37);
 
   // Nível de Confiança
   ctx.fillStyle = '#B7C9C0';
   ctx.font = '700 13px "Plus Jakarta Sans", sans-serif';
   ctx.textAlign = 'right';
-  ctx.fillText(`CONFIANÇA: ${palpite.nivelConfianca.toUpperCase()}`, detailsX + detailsW - 30, detailsY + 42);
+  ctx.fillText(`CONFIANÇA: ${palpite.nivelConfianca.toUpperCase()}`, detailsX + detailsW - 25, detailsY + 37);
 
   // Resultado Final Escolhido
   ctx.textAlign = 'center';
   ctx.fillStyle = '#00C853';
-  ctx.font = `900 ${isStories ? '34px' : '26px'} "Plus Jakarta Sans", sans-serif`;
+  ctx.font = `900 ${isStories ? '34px' : '24px'} "Plus Jakarta Sans", sans-serif`;
   const pickText = palpite.palpiteFinal === 'Empate' ? 'Palpite Final: Empate' : `Palpite Final: Vitória do ${palpite.palpiteFinal}`;
-  ctx.fillText(pickText, width / 2, detailsY + (isStories ? 120 : 95));
+  ctx.fillText(pickText, width / 2, detailsY + (isStories ? 110 : 80));
 
   // Sugerido pelo questionário
   ctx.fillStyle = '#F8FAFC';
   ctx.font = '800 16px "Plus Jakarta Sans", sans-serif';
   const sugText = palpite.resultadoSugerido === 'Empate' ? 'Empate' : `Vitória do ${palpite.resultadoSugerido}`;
-  ctx.fillText(`Sugestão da Análise: ${sugText}`, width / 2, detailsY + (isStories ? 175 : 135));
+  ctx.fillText(`Sugestão da Análise: ${sugText}`, width / 2, detailsY + (isStories ? 165 : 115));
 
   // Pontuação Resumida
   ctx.fillStyle = '#B7C9C0';
   ctx.font = '700 14px "Plus Jakarta Sans", sans-serif';
   const pontResumo = `${palpite.selecaoA} ${palpite.pontuacao?.selecaoA ?? 0} · Empate ${palpite.pontuacao?.empate ?? 0} · ${palpite.selecaoB} ${palpite.pontuacao?.selecaoB ?? 0}`;
-  ctx.fillText(pontResumo, width / 2, detailsY + (isStories ? 215 : 165));
+  ctx.fillText(pontResumo, width / 2, detailsY + (isStories ? 205 : 145));
 
   // Perfil do Palpiteiro Badge
-  const profCardY = detailsY + (isStories ? 270 : 190);
-  const profCardW = detailsW - 60;
-  const profCardH = isStories ? 220 : 48;
-  const profCardX = detailsX + 30;
+  const profCardY = detailsY + (isStories ? 260 : 165);
+  const profCardW = detailsW - 50;
+  const profCardH = isStories ? 340 : 44;
+  const profCardX = detailsX + 25;
 
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
   ctx.lineWidth = 1.5;
   desenharRetanguloArredondado(ctx, profCardX, profCardY, profCardW, profCardH, 14, true, true);
 
   if (!isStories) {
-    // Layout horizontal do badge de perfil
+    // Layout horizontal do badge de perfil (Square)
     ctx.textAlign = 'left';
     ctx.fillStyle = '#FFD166';
-    ctx.font = '900 15px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(`${perfilIcon} Perfil: ${perfilStr}`, profCardX + 15, profCardY + 29);
+    ctx.font = '900 14px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(`${perfilIcon} Perfil: ${perfilStr}`, profCardX + 15, profCardY + 26);
   } else {
-    // Layout vertical expandido para Stories
+    // Layout vertical expandido para Stories (com correção de quebra de texto)
     ctx.fillStyle = '#FFD166';
-    ctx.font = '900 48px "Segoe UI Emoji", sans-serif';
-    ctx.fillText(perfilIcon, width / 2, profCardY + 65);
+    ctx.font = '900 52px "Segoe UI Emoji", sans-serif';
+    ctx.fillText(perfilIcon, width / 2, profCardY + 75);
 
     ctx.fillStyle = '#FFD166';
-    ctx.font = '900 24px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(`Perfil: ${perfilStr}`, width / 2, profCardY + 115);
+    ctx.font = '900 26px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(`Perfil: ${perfilStr}`, width / 2, profCardY + 130);
 
     ctx.fillStyle = '#B7C9C0';
-    ctx.font = '700 15px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '700 16px "Plus Jakarta Sans", sans-serif';
     
-    // Desenhar descrição quebrada em linhas
-    const desc = palpite.perfilPalpiteiro?.descricao || "Você olhou para o confronto com cuidado e dedicação.";
-    ctx.fillText(desc, width / 2, profCardY + 160, profCardW - 40);
+    const desc = palpite.perfilPalpiteiro?.descricao || "Você enxerga uma superioridade clara e está extremamente confiante na vitória do seu time.";
+    // Chamada da nova função de wrap text para evitar o estouro de borda
+    desenharTextoComQuebra(ctx, desc, width / 2, profCardY + 180, profCardW - 60, 24);
   }
 
-  // 7. Rodapé do Card
+  // 7. Rodapé do Card (Posicionado perfeitamente sem colisões)
   ctx.textAlign = 'center';
-  const footerY = isStories ? height - 250 : height - 85;
+  const footerY = isStories ? height - 200 : height - 70;
 
   ctx.fillStyle = '#FFD166';
   ctx.font = '900 22px "Plus Jakarta Sans", sans-serif';
@@ -313,9 +340,9 @@ export function desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout = 'sq
 
   ctx.fillStyle = '#B7C9C0';
   ctx.font = '700 15px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('Monte seus palpites e divirta-se com a gente!', width / 2, footerY + 30);
+  ctx.fillText('Monte seus palpites e divirta-se com a gente!', width / 2, footerY + 28);
   
-  ctx.font = '38px "Segoe UI Emoji", sans-serif';
-  ctx.fillText('⚽🏆', width / 2 - 190, footerY + 12);
-  ctx.fillText('🏆✨', width / 2 + 190, footerY + 12);
+  ctx.font = '36px "Segoe UI Emoji", sans-serif';
+  ctx.fillText('⚽🏆', width / 2 - 190, footerY + 10);
+  ctx.fillText('🏆✨', width / 2 + 190, footerY + 10);
 }

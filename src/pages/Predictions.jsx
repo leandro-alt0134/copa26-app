@@ -14,7 +14,8 @@ import PredictionAchievements from '../components/predictions/PredictionAchievem
 import PredictionHistory from '../components/predictions/PredictionHistory';
 
 // Utilitários de lógica, armazenamento e compartilhamento
-import { carregarPalpites, salvarPalpite, limparTodosPalpites } from '../utils/predictionStorage';
+import { carregarPalpites, salvarPalpite, limparTodosPalpites, carregarPartidasAtualizadas, salvarPartidasAtualizadas } from '../utils/predictionStorage';
+import { buscarResultadosReais } from '../utils/soccerApi';
 import { 
   getPerguntasRapidas, 
   getPerguntasDetalhadas, 
@@ -55,16 +56,63 @@ export default function Predictions() {
   const [palpitesSalvos, setPalpitesSalvos] = useState([]);
   const [palpiteSalvoSucesso, setPalpiteSalvoSucesso] = useState(false);
 
-  // Carregar dados iniciais das partidas e seleções
+  // Carregar dados iniciais das partidas e seleções com background sync
   useEffect(() => {
+    const localCachedMatches = carregarPartidasAtualizadas();
+
+    const carregarEIntegrarAPI = (baseMatches, selecoesData) => {
+      buscarResultadosReais()
+        .then((resultadosReais) => {
+          if (resultadosReais && resultadosReais.length > 0) {
+            const updated = baseMatches.map((partida) => {
+              const resultadoApi = resultadosReais.find((res) => 
+                (res.selecaoA === partida.selecaoA && res.selecaoB === partida.selecaoB) ||
+                (res.selecaoA === partida.selecaoB && res.selecaoB === partida.selecaoA)
+              );
+
+              if (resultadoApi) {
+                const golsRealA = resultadoApi.selecaoA === partida.selecaoA ? resultadoApi.golsA : resultadoApi.golsB;
+                const golsRealB = resultadoApi.selecaoA === partida.selecaoA ? resultadoApi.golsB : resultadoApi.golsA;
+                return {
+                  ...partida,
+                  golsRealA,
+                  golsRealB,
+                  encerrada: true
+                };
+              }
+              return partida;
+            });
+            setPartidas(updated);
+            salvarPartidasAtualizadas(updated);
+          } else {
+            setPartidas(baseMatches);
+          }
+          setSelecoes(selecoesData || []);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Erro ao sincronizar partidas com a API:', err);
+          setPartidas(baseMatches);
+          setSelecoes(selecoesData || []);
+          setLoading(false);
+        });
+    };
+
     Promise.all([
       fetch('/data/partidas.json').then((r) => r.json()),
       fetch('/data/selecoes.json').then((r) => r.json()),
     ])
       .then(([partidasData, selecoesData]) => {
-        setPartidas(partidasData || []);
-        setSelecoes(selecoesData.copa_2026 || []);
-        setLoading(false);
+        const baseMatches = localCachedMatches && localCachedMatches.length > 0 ? localCachedMatches : (partidasData || []);
+        if (localCachedMatches && localCachedMatches.length > 0) {
+          setPartidas(localCachedMatches);
+          setSelecoes(selecoesData.copa_2026 || []);
+          setLoading(false);
+          // Busca atualizações da API em background
+          carregarEIntegrarAPI(localCachedMatches, selecoesData.copa_2026);
+        } else {
+          carregarEIntegrarAPI(baseMatches, selecoesData.copa_2026);
+        }
       })
       .catch((err) => {
         console.error('Erro ao carregar dados:', err);
@@ -88,18 +136,24 @@ export default function Predictions() {
     }
   }, [partidas, location]);
 
+  const partidaAtual = partidas.find((p) => p.id === partidaId);
+
   // Resetar estados ao mudar de partida
   useEffect(() => {
     setTipoPalpite('');
     setRespostas({});
     setSugestao(null);
     setPalpiteFinal('');
-    setPlacarA('');
-    setPlacarB('');
+    if (partidaAtual && partidaAtual.encerrada) {
+      setPlacarA(partidaAtual.golsRealA !== undefined ? partidaAtual.golsRealA.toString() : '');
+      setPlacarB(partidaAtual.golsRealB !== undefined ? partidaAtual.golsRealB.toString() : '');
+      setPalpiteFinal(partidaAtual.golsRealA > partidaAtual.golsRealB ? partidaAtual.selecaoA : partidaAtual.golsRealB > partidaAtual.golsRealA ? partidaAtual.selecaoB : 'Empate');
+    } else {
+      setPlacarA('');
+      setPlacarB('');
+    }
     setPalpiteSalvoSucesso(false);
-  }, [partidaId]);
-
-  const partidaAtual = partidas.find((p) => p.id === partidaId);
+  }, [partidaId, partidaAtual]);
 
   // Perguntas dinâmicas baseadas no tipo de palpite selecionado
   const perguntasAtuais =
@@ -277,6 +331,24 @@ export default function Predictions() {
     window.open(urlShare, '_blank');
   };
 
+  const exportarPalpitesJSON = () => {
+    if (palpitesSalvos.length === 0) {
+      alert("Nenhum palpite para exportar.");
+      return;
+    }
+    const dataStr = JSON.stringify(palpitesSalvos, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `palpites-copa2026.json`;
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const compartilharPalpiteUnicoWhatsApp = (palpite) => {
     // Compartilha apenas o palpite específico utilizando o formato aprimorado
     const frase = gerarFraseCompartilhamento(palpite);
@@ -398,7 +470,51 @@ export default function Predictions() {
 
       {/* Escolha do Tipo de Palpite */}
       {partidaAtual && tipoPalpite === '' && (
-        <PredictionModeSelector setTipoPalpite={setTipoPalpite} />
+        partidaAtual.encerrada ? (
+          <div className="animate-fade-in">
+            <article className="card match-picker-card p-4 text-center mb-4">
+              <div className="mb-3">
+                <span className="badge px-3 py-2" style={{ fontSize: '0.8rem', background: 'rgba(239, 68, 68, 0.15)', color: '#EF4444', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px' }}>
+                  Partida Encerrada 🔒
+                </span>
+              </div>
+              <h3 className="titulo text-white mb-3">Confronto Concluído</h3>
+              <p className="lead text-muted-old mx-auto mb-4" style={{ maxWidth: '600px' }}>
+                Este confronto já ocorreu na vida real. Por razões de integridade e UX, palpites estão bloqueados para jogos finalizados.
+              </p>
+              <div className="d-flex justify-content-center align-items-center gap-4 my-3 p-3 mx-auto" style={{ background: 'rgba(255, 255, 255, 0.05)', borderRadius: '16px', maxWidth: '500px' }}>
+                <div className="text-end" style={{ width: '40%' }}>
+                  <span className="font-weight-bold text-white" style={{ fontSize: '1.1rem' }}>{partidaAtual.selecaoA}</span>
+                </div>
+                <div className="text-center px-3 py-2" style={{ background: 'var(--primary-soft)', border: '1px solid var(--primary)', borderRadius: '12px', minWidth: '80px' }}>
+                  <span className="font-weight-bold text-white" style={{ fontSize: '1.4rem' }}>{partidaAtual.golsRealA} - {partidaAtual.golsRealB}</span>
+                </div>
+                <div className="text-start" style={{ width: '40%' }}>
+                  <span className="font-weight-bold text-white" style={{ fontSize: '1.1rem' }}>{partidaAtual.selecaoB}</span>
+                </div>
+              </div>
+              <div className="notice text-start mx-auto mt-4" style={{ maxWidth: '600px' }}>
+                <span className="font-weight-bold">💡 O que você pode fazer:</span>
+                <p className="small mb-0 text-muted mt-1">
+                  Acesse a aba <strong>Confrontos</strong> para palpitar em jogos futuros ou vá em <strong>Minha Copa</strong> para simular todo o mata-mata do torneio!
+                </p>
+              </div>
+            </article>
+            
+            <PredictionFinalForm 
+              partidaAtual={partidaAtual}
+              palpiteFinal={palpiteFinal}
+              setPalpiteFinal={setPalpiteFinal}
+              placarA={placarA}
+              setPlacarA={setPlacarA}
+              placarB={placarB}
+              setPlacarB={setPlacarB}
+              salvarPalpite={(e) => e.preventDefault()}
+            />
+          </div>
+        ) : (
+          <PredictionModeSelector setTipoPalpite={setTipoPalpite} />
+        )
       )}
 
       {/* Questionário (Quiz) */}
@@ -466,6 +582,7 @@ export default function Predictions() {
         onShareWhatsApp={compartilharNoWhatsApp}
         onDownloadTXT={baixarPalpitesComoTexto}
         onClearHistory={handleLimparPalpites}
+        onExportData={exportarPalpitesJSON}
       />
     </main>
   );

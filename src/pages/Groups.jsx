@@ -133,6 +133,7 @@ export default function Groups() {
                           className="team-mini"
                           alt={`Bandeira ${time.nome}`}
                           loading="lazy"
+                          decoding="async"
                           onError={(e) => { e.currentTarget.style.display = 'none'; }}
                         />
                         <span className="team-name">{idx + 1}. {time.nome}</span>

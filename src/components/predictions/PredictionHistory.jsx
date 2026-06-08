@@ -7,7 +7,8 @@ export default function PredictionHistory({
   onDownloadCard,
   onShareWhatsApp,
   onDownloadTXT,
-  onClearHistory
+  onClearHistory,
+  onExportData
 }) {
   const [filtro, setFiltro] = useState('todos'); // 'todos' | 'rapido' | 'detalhado'
   const [ordenacao, setOrdenacao] = useState('recentes'); // 'recentes' | 'grupo'
@@ -75,6 +76,14 @@ export default function PredictionHistory({
             onClick={onDownloadTXT}
           >
             📥 Baixar TXT
+          </button>
+          <button
+            type="button"
+            className="btn btn-sm btn-outline-light px-3 py-1"
+            style={{ borderRadius: '10px' }}
+            onClick={onExportData}
+          >
+            📂 Exportar JSON
           </button>
           <button
             type="button"
@@ -179,6 +188,8 @@ export default function PredictionHistory({
                       <img
                         src={`/${escudoA}`}
                         alt={`Escudo de ${palpite.selecaoA}`}
+                        loading="lazy"
+                        decoding="async"
                         onError={(e) => { e.currentTarget.src = '/assets/copa-2026-logo-white.svg'; }}
                       />
                       <span>{palpite.selecaoA}</span>
@@ -191,6 +202,8 @@ export default function PredictionHistory({
                       <img
                         src={`/${escudoB}`}
                         alt={`Escudo de ${palpite.selecaoB}`}
+                        loading="lazy"
+                        decoding="async"
                         onError={(e) => { e.currentTarget.src = '/assets/copa-2026-logo-white.svg'; }}
                       />
                     </div>

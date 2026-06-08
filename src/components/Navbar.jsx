@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import InstallPwaButton from './InstallPwaButton';
 
 export default function Navbar() {
   return (
@@ -22,6 +23,10 @@ export default function Navbar() {
           <NavLink to="/palpites" className={({ isActive }) => "nav-link-custom" + (isActive ? " active" : "")}>
             Palpites
           </NavLink>
+          <NavLink to="/minha-copa" className={({ isActive }) => "nav-link-custom" + (isActive ? " active" : "")}>
+            🏆 Minha Copa
+          </NavLink>
+          <InstallPwaButton />
         </div>
       </div>
     </nav>

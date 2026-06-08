@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Countdown from '../components/Countdown';
+import { buscarResultadosReais } from '../utils/soccerApi';
+import { carregarPartidasAtualizadas, salvarPartidasAtualizadas } from '../utils/predictionStorage';
 
 export default function Matches() {
   const [partidas, setPartidas] = useState([]);
@@ -11,16 +13,64 @@ export default function Matches() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('/data/partidas.json')
-      .then((res) => res.json())
-      .then((data) => {
-        setPartidas(data || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Erro ao carregar partidas:', err);
-        setLoading(false);
-      });
+    // 1. Carrega dados atualizados do cache offline do localStorage primeiro, se houver
+    const localCachedMatches = carregarPartidasAtualizadas();
+    
+    const carregarEIntegrarAPI = (baseMatches) => {
+      buscarResultadosReais()
+        .then((resultadosReais) => {
+          if (resultadosReais && resultadosReais.length > 0) {
+            const updated = baseMatches.map((partida) => {
+              // Procura se essa partida já encerrou na API
+              const resultadoApi = resultadosReais.find((res) => 
+                (res.selecaoA === partida.selecaoA && res.selecaoB === partida.selecaoB) ||
+                (res.selecaoA === partida.selecaoB && res.selecaoB === partida.selecaoA)
+              );
+
+              if (resultadoApi) {
+                const golsRealA = resultadoApi.selecaoA === partida.selecaoA ? resultadoApi.golsA : resultadoApi.golsB;
+                const golsRealB = resultadoApi.selecaoA === partida.selecaoA ? resultadoApi.golsB : resultadoApi.golsA;
+                return {
+                  ...partida,
+                  golsRealA,
+                  golsRealB,
+                  encerrada: true
+                };
+              }
+              return partida;
+            });
+            setPartidas(updated);
+            salvarPartidasAtualizadas(updated);
+          } else {
+            setPartidas(baseMatches);
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Erro ao sincronizar partidas com a API:', err);
+          setPartidas(baseMatches);
+          setLoading(false);
+        });
+    };
+
+    if (localCachedMatches && localCachedMatches.length > 0) {
+      setPartidas(localCachedMatches);
+      setLoading(false);
+      // Busca atualizações adicionais da API em background
+      carregarEIntegrarAPI(localCachedMatches);
+    } else {
+      fetch('/data/partidas.json')
+        .then((res) => res.json())
+        .then((data) => {
+          const baseData = data || [];
+          // Tenta integrar com a API
+          carregarEIntegrarAPI(baseData);
+        })
+        .catch((err) => {
+          console.error('Erro ao carregar partidas estáticas:', err);
+          setLoading(false);
+        });
+    }
   }, []);
 
   const handlePalpitar = (partidaId) => {
@@ -34,6 +84,7 @@ export default function Matches() {
     const matchesRodada = filtroRodada === 'todas' || p.rodada === parseInt(filtroRodada);
     return matchesGrupo && matchesRodada;
   });
+
 
   return (
     <main className="container pb-5">
@@ -133,6 +184,8 @@ export default function Matches() {
                           src={`/${partida.escudoA}`}
                           alt={`Escudo de ${partida.selecaoA}`}
                           className="match-card-escudo"
+                          loading="lazy"
+                          decoding="async"
                           onError={(e) => { e.currentTarget.src = '/assets/copa-2026-logo-white.svg'; }}
                         />
                       </div>
@@ -140,19 +193,40 @@ export default function Matches() {
                     </div>
 
                     {/* Centro */}
-                    <div className="match-card-center-vs">
-                      <span className="match-card-badge" style={{ fontSize: '0.7rem' }}>
+                    <div className="match-card-center-vs d-flex flex-column align-items-center justify-content-center">
+                      <span className="match-card-badge mb-1" style={{ fontSize: '0.7rem' }}>
                         Grupo {partida.grupo} — Rodada {partida.rodada}
                       </span>
-                      <span className="match-card-vs-text" style={{ fontSize: '1.4rem' }}>VS</span>
-                      <button
-                        type="button"
-                        className="btn btn-primary btn-sm px-3 mt-2"
-                        onClick={() => handlePalpitar(partida.id)}
-                        style={{ fontSize: '0.78rem', minHeight: '32px', borderRadius: '8px' }}
-                      >
-                        Palpitar 🎮
-                      </button>
+                      {partida.encerrada ? (
+                        <>
+                          <span className="match-card-vs-text text-success font-weight-bold my-1" style={{ fontSize: '1.55rem', letterSpacing: '2px' }}>
+                            {partida.golsRealA} - {partida.golsRealB}
+                          </span>
+                          <span className="badge px-2 py-1 my-1" style={{ fontSize: '0.62rem', background: 'rgba(0, 200, 83, 0.15)', color: '#00C853', border: '1px solid rgba(0, 200, 83, 0.3)', borderRadius: '6px' }}>
+                            Resultado Oficial
+                          </span>
+                          <button
+                            type="button"
+                            className="btn btn-outline-secondary btn-sm px-3 mt-2"
+                            disabled
+                            style={{ fontSize: '0.78rem', minHeight: '32px', borderRadius: '8px', cursor: 'not-allowed', opacity: 0.5 }}
+                          >
+                            Encerrado 🔒
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <span className="match-card-vs-text" style={{ fontSize: '1.4rem' }}>VS</span>
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm px-3 mt-2"
+                            onClick={() => handlePalpitar(partida.id)}
+                            style={{ fontSize: '0.78rem', minHeight: '32px', borderRadius: '8px' }}
+                          >
+                            Palpitar 🎮
+                          </button>
+                        </>
+                      )}
                     </div>
 
                     {/* Seleção B */}
@@ -162,6 +236,8 @@ export default function Matches() {
                           src={`/${partida.escudoB}`}
                           alt={`Escudo de ${partida.selecaoB}`}
                           className="match-card-escudo"
+                          loading="lazy"
+                          decoding="async"
                           onError={(e) => { e.currentTarget.src = '/assets/copa-2026-logo-white.svg'; }}
                         />
                       </div>

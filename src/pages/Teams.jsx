@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Countdown from '../components/Countdown';
 
 export default function Teams() {
@@ -128,6 +129,40 @@ export default function Teams() {
 
   return (
     <main className="container pb-5">
+      {/* Dashboard de Ações Rápidas (PWA/Mobile First) */}
+      <section className="quick-actions-dashboard mb-4">
+        <div className="quick-actions-grid">
+          <Link to="/palpites" className="quick-action-card">
+            <span className="quick-action-icon">🎯</span>
+            <div className="quick-action-info">
+              <h3>Fazer meu palpite</h3>
+              <p>Responda o quiz e simule o placar</p>
+            </div>
+          </Link>
+          <Link to="/confrontos" className="quick-action-card">
+            <span className="quick-action-icon">⚽</span>
+            <div className="quick-action-info">
+              <h3>Ver confrontos</h3>
+              <p>Tabela de jogos da primeira fase</p>
+            </div>
+          </Link>
+          <Link to="/grupos" className="quick-action-card">
+            <span className="quick-action-icon">🏆</span>
+            <div className="quick-action-info">
+              <h3>Ver grupos</h3>
+              <p>Classificação e chaveamento</p>
+            </div>
+          </Link>
+          <a href="#lista-selecoes" className="quick-action-card">
+            <span className="quick-action-icon">🌎</span>
+            <div className="quick-action-info">
+              <h3>Ver seleções</h3>
+              <p>Cards, estatísticas e títulos</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
       {/* Hero / Introdução */}
       <section className="hero mb-4">
         <div className="row align-items-center g-0">
@@ -166,7 +201,7 @@ export default function Teams() {
             </div>
           </div>
           <div className="col-lg-4 text-center p-4 p-md-5 position-relative">
-            <img src="/assets/copa-2026-logo.svg" className="hero-logo" alt="Logo da Copa do Mundo FIFA 2026" />
+            <img src="/assets/copa-2026-logo.svg" className="hero-logo" alt="Logo da Copa do Mundo FIFA 2026" decoding="async" />
           </div>
         </div>
       </section>
@@ -268,6 +303,7 @@ export default function Teams() {
                           alt=""
                           aria-hidden="true"
                           loading="lazy"
+                          decoding="async"
                         />
                       )}
                       <div className="topo-card">
@@ -282,6 +318,7 @@ export default function Teams() {
                             className="escudo"
                             alt={`Escudo ${selecao.nome}`}
                             loading="lazy"
+                            decoding="async"
                             onError={(e) => { e.currentTarget.style.display = 'none'; }}
                           />
                         </button>
@@ -405,7 +442,7 @@ export default function Teams() {
               &times;
             </button>
             <span className="escudo-modal__label">Escudo ampliado</span>
-            <img src={`/${modalEscudo.escudo}`} alt={`Escudo ampliado ${modalEscudo.nome}`} className="escudo-modal__img" />
+            <img src={`/${modalEscudo.escudo}`} alt={`Escudo ampliado ${modalEscudo.nome}`} className="escudo-modal__img" loading="lazy" decoding="async" />
             <h2 className="escudo-modal__title" id="escudo-modal-titulo">{modalEscudo.nome}</h2>
             <a
               href={`/${modalEscudo.escudo}`}
@@ -434,6 +471,8 @@ export default function Teams() {
                     src={`/${s.bandeiraQuadrada || s.bandeira || s.escudo}`}
                     alt=""
                     style={{ width: '18px', height: '18px', objectFit: 'contain' }}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <span>{s.nome}</span>
                   <span className="compare-badge__remove" onClick={() => removerComparado(s.nome)}>&times;</span>
@@ -477,7 +516,7 @@ export default function Teams() {
               {/* Seleção 1 */}
               <div className="compare-team compare-team--1">
                 <div className="compare-team__escudo-wrapper">
-                  <img src={`/${t1.escudo}`} alt={`Escudo de ${t1.nome}`} className="compare-team__escudo" />
+                  <img src={`/${t1.escudo}`} alt={`Escudo de ${t1.nome}`} className="compare-team__escudo" decoding="async" />
                 </div>
                 <h3 className="compare-team__name h5">{t1.nome}</h3>
                 <span className="badge bg-light text-dark">{t1.confederacao || 'Federação'}</span>
@@ -546,7 +585,7 @@ export default function Teams() {
               {/* Seleção 2 */}
               <div className="compare-team compare-team--2">
                 <div className="compare-team__escudo-wrapper">
-                  <img src={`/${t2.escudo}`} alt={`Escudo de ${t2.nome}`} className="compare-team__escudo" />
+                  <img src={`/${t2.escudo}`} alt={`Escudo de ${t2.nome}`} className="compare-team__escudo" decoding="async" />
                 </div>
                 <h3 className="compare-team__name h5">{t2.nome}</h3>
                 <span className="badge bg-light text-dark">{t2.confederacao || 'Federação'}</span>

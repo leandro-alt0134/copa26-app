@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 export default function PredictionQuiz({
   tipoPalpite,
@@ -11,11 +12,14 @@ export default function PredictionQuiz({
 }) {
   const [currIndex, setCurrIndex] = useState(0);
   const [showTip, setShowTip] = useState(false);
+  const [openTips, setOpenTips] = useState({});
+  const isMobile = useIsMobile();
 
   // Resetar o índice ao trocar de tipo de palpite ou de partida
   useEffect(() => {
     setCurrIndex(0);
     setShowTip(false);
+    setOpenTips({});
   }, [tipoPalpite, partidaAtual?.id]);
 
   if (perguntasAtuais.length === 0) return null;
@@ -36,8 +40,8 @@ export default function PredictionQuiz({
   const handleOptionSelect = (perguntaId, valor) => {
     handleRespostaChange(perguntaId, valor);
     
-    // Auto-avançar após 350ms se não for a última pergunta
-    if (!isLastQuestion) {
+    // Auto-avançar após 350ms se não for a última pergunta e for no mobile
+    if (isMobile && !isLastQuestion) {
       setTimeout(() => {
         setCurrIndex((prev) => Math.min(prev + 1, totalPerguntas - 1));
         setShowTip(false);
@@ -55,6 +59,113 @@ export default function PredictionQuiz({
     setShowTip(false);
   };
 
+  const toggleTip = (index) => {
+    setOpenTips((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+
+  // --- RENDERIZAÇÃO PARA DESKTOP (LISTA COMPLETA) ---
+  if (!isMobile) {
+    return (
+      <section id="secao-questionario" className="mb-4">
+        {/* Header com o título e botão Trocar */}
+        <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+          <h2 className="h5 text-white mb-0 font-weight-bold">
+            Análise do Confronto ({tipoPalpite === 'rapido' ? 'Modo Rápido' : 'Modo Detalhado'})
+          </h2>
+          <button
+            type="button"
+            className="btn btn-sm btn-outline-light px-3 py-1"
+            style={{ borderRadius: '10px', fontSize: '0.8rem' }}
+            onClick={handleTrocarTipo}
+          >
+            🔄 Trocar tipo de palpite
+          </button>
+        </div>
+
+        {/* Lista de Perguntas (Desktop) */}
+        <div className="quiz-desktop-list">
+          {perguntasAtuais.map((pergunta, idx) => {
+            const isTipOpen = openTips[idx];
+            return (
+              <div 
+                className={`quiz-card mb-4 ${tipoPalpite === 'rapido' ? 'quick-mode-active' : 'detail-mode-active'}`} 
+                key={pergunta.id}
+              >
+                <div className="quiz-question-wrapper">
+                  {/* Título da Pergunta */}
+                  <h3 className="quiz-question-title">
+                    <span className="quiz-question-number">{idx + 1}</span>
+                    {pergunta.titulo}
+                  </h3>
+
+                  {/* Dica de Ajuda recolhível */}
+                  {pergunta.ajuda && (
+                    <div className="quiz-tip-container">
+                      <button 
+                        type="button" 
+                        className="quiz-tip-toggle"
+                        onClick={() => toggleTip(idx)}
+                      >
+                        {isTipOpen ? '💡 Ocultar dica tática' : '💡 Ver dica tática'}
+                      </button>
+                      {isTipOpen && (
+                        <div className="quiz-tip-content">
+                          {pergunta.ajuda}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Opções de Resposta */}
+                  <div className="quiz-options-group">
+                    {pergunta.opcoes.map((opt, oIdx) => {
+                      const isSelected = respostas[pergunta.id] === opt.valor;
+                      return (
+                        <div key={`${pergunta.id}-${oIdx}`}>
+                          <input
+                            type="radio"
+                            name={`q_${pergunta.id}`}
+                            id={`q_${pergunta.id}_${oIdx}`}
+                            className="quiz-option-input"
+                            value={opt.valor}
+                            checked={isSelected}
+                            onChange={() => handleRespostaChange(pergunta.id, opt.valor)}
+                            required
+                          />
+                          <label htmlFor={`q_${pergunta.id}_${oIdx}`} className="quiz-option-label">
+                            {opt.texto}
+                          </label>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Rodapé do Quiz (Desktop) */}
+        <div className="d-flex justify-content-between align-items-center mt-3 p-3 toolbar">
+          <div className="text-white-50">
+            Respondidas {answeredCount} de {totalPerguntas} perguntas ({progressPercent}%)
+          </div>
+          <button
+            type="button"
+            id="btn-ver-sugestao"
+            className={`btn btn-primary px-5 py-2 ${quizCompletado ? 'btn-pulse' : ''}`}
+            disabled={!quizCompletado}
+            onClick={calcularSugestao}
+            style={{ borderRadius: '12px', fontSize: '1rem', minHeight: '48px' }}
+          >
+            Ver sugestão de palpite 📊
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  // --- RENDERIZAÇÃO PARA MOBILE (UMA PERGUNTA POR VEZ) ---
   return (
     <section id="secao-questionario" className="mb-4">
       {/* Header com o título e botão Trocar */}
@@ -97,7 +208,7 @@ export default function PredictionQuiz({
             {currentPergunta.titulo}
           </h3>
 
-          {/* Dica de Ajuda recolhível (para o Detalhado) */}
+          {/* Dica de Ajuda recolhível */}
           {currentPergunta.ajuda && (
             <div className="quiz-tip-container">
               <button 
