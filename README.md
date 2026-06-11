@@ -66,3 +66,16 @@ Após gerar a build, você pode simular a execução de produção localmente ro
 ```bash
 npm run preview
 ```
+
+### 5. Resolução de Caching e PWA (Limpeza do Service Worker)
+
+Como o projeto utiliza o `vite-plugin-pwa` para suporte a PWA Offline, os arquivos de estilo e scripts são mantidos sob cache agressivo do navegador. Se você realizar uma compilação de produção (`npm run build`) e, ao rodar o preview (`npm run preview`), o layout parecer desalinhado ou com contrastes antigos, siga os passos abaixo para limpar o cache:
+
+1. **Abra o DevTools** no navegador (pressione `F12` ou clique com o botão direito e selecione *Inspecionar*).
+2. Vá até a aba **Application** (ou *Aplicativo*).
+3. No painel esquerdo, navegue até **Service Workers**.
+4. Clique em **Unregister** (ou *Desativar/Remover registro*) correspondente ao service worker da porta local.
+5. Em seguida, acesse **Storage** (ou *Armazenamento*) e clique em **Clear site data** (ou *Limpar dados do site*).
+6. Force um recarregamento completo da página usando **Ctrl + F5** (ou **Cmd + Shift + R** no macOS).
+
+Isso garantirá que o preview e testes locais de produção utilizem os arquivos atuais da pasta `/dist`.

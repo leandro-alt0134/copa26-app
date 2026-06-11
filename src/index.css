@@ -1,41 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg: #061A12;
-  --bg-2: #08291D;
+  /* Novos tokens visuais consolidados para alto contraste */
+  --color-bg-page: #032f22;
+  --color-bg-header: #00452e;
+  --color-bg-section: #063b2d;
+  --color-bg-surface: #074333;
+  --color-bg-surface-elevated: #0c5540;
+  --color-bg-input: #082d24;
 
-  --surface: rgba(8, 41, 29, 0.88);
-  --surface-2: rgba(15, 67, 48, 0.82);
-  --surface-soft: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #f7faf8;
+  --color-text-secondary: #c8d8cf;
+  --color-text-muted: #9fb7aa;
+  --color-text-disabled: #718a7d;
 
-  --line: rgba(255, 255, 255, 0.14);
+  --color-green-accent: #16b89a;
+  --color-cyan-accent: #20bfe3;
+  --color-blue-accent: #1769ff;
+  --color-gold: #f3c844;
+  --color-gold-soft: #ffe28a;
 
-  --text: #F8FAFC;
-  --muted: #B7C9C0;
+  --color-border-soft: rgba(255, 255, 255, 0.14);
+  --color-border-medium: rgba(255, 255, 255, 0.24);
+  --color-border-strong: rgba(255, 255, 255, 0.34);
 
-  --primary: #00C853;
-  --primary-soft: rgba(0, 200, 83, 0.16);
+  /* Escala de z-index clara */
+  --z-header: 30;
+  --z-bottom-nav: 35;
+  --z-compare-bar: 38;
+  --z-back-to-top: 40;
+  --z-modal: 80;
+  --z-toast: 90;
 
-  --accent: #FFD166;
-  --accent-strong: #FFB703;
+  /* Aliases para compatibilidade retroativa com outras paginas */
+  --bg: var(--color-bg-page);
+  --bg-2: var(--color-bg-section);
 
-  --blue: #38BDF8;
-  --blue-dark: #0F3A5C;
+  --surface: var(--color-bg-surface);
+  --surface-2: var(--color-bg-surface-elevated);
+  --surface-soft: var(--color-border-soft);
+
+  --line: var(--color-border-soft);
+  --line-old: var(--color-border-medium);
+
+  --text: var(--color-text-primary);
+  --muted: var(--color-text-muted);
+
+  --primary: var(--color-green-accent);
+  --primary-soft: rgba(22, 184, 154, 0.16);
+
+  --accent: var(--color-gold);
+  --accent-strong: var(--color-gold-soft);
+
+  --blue: var(--color-cyan-accent);
+  --blue-dark: var(--color-bg-header);
 
   --danger: #EF4444;
 
-  /* Aliases para compatibilidade retroativa com outras paginas */
   --panel: var(--surface);
   --panel-strong: var(--surface-2);
-  --line-old: rgba(255, 255, 255, .22);
-  --muted-old: #e6f5ec;
+  --muted-old: var(--color-text-secondary);
   --danger-old: #ff4d5a;
-  --blue-old: #174cff;
+  --blue-old: var(--color-blue-accent);
   --green-dark: var(--bg-2);
+
+  /* Sobrescrita de variaveis do Bootstrap para garantir contraste nos utilitarios nativos */
+  --bs-body-color: var(--color-text-primary);
+  --bs-body-bg: var(--color-bg-page);
+  --bs-secondary-color: var(--color-text-muted);
+  --bs-secondary-bg: var(--color-bg-section);
+  --bs-tertiary-color: var(--color-text-disabled);
+  --bs-link-color: var(--color-green-accent);
+  --bs-link-hover-color: var(--color-cyan-accent);
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Classes de utilitários globais para forçar contraste adequado */
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+.text-white-50 {
+  color: var(--color-text-secondary) !important;
+}
+
+.text-muted-old {
+  color: var(--color-text-secondary) !important;
 }
 
 html {
@@ -71,7 +124,7 @@ body::before {
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: var(--z-header);
   border-bottom: 1px solid rgba(255, 255, 255, .22);
   background: rgba(3, 55, 33, .86);
   backdrop-filter: blur(14px);
@@ -301,7 +354,7 @@ body::before {
 .escudo-modal {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: var(--z-modal);
   display: none;
   align-items: center;
   justify-content: center;
@@ -751,29 +804,33 @@ footer {
 
 .back-to-top {
   position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 30;
-  width: 54px;
-  height: 54px;
-  border: 2px solid rgba(255, 255, 255, .88);
+  right: 20px;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: var(--z-back-to-top);
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--color-border-medium);
   border-radius: 999px;
   color: #ffffff;
   background-image:
-    linear-gradient(rgba(0, 0, 0, .10), rgba(0, 0, 0, .10)),
+    linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .15)),
     url('/assets/soccer-ball-button.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .35);
   text-shadow: 0 2px 5px rgba(0, 0, 0, .85);
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 900;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
-  transition: opacity .18s ease, transform .18s ease, filter .18s ease;
+  transition: opacity .22s ease, transform .22s ease, filter .22s ease, border-color .22s ease;
 }
 
 .back-to-top.is-visible {
@@ -782,9 +839,20 @@ footer {
   pointer-events: auto;
 }
 
-@media (min-width: 768px) {
+.back-to-top:hover {
+  border-color: var(--color-green-accent);
+  filter: brightness(1.15) saturate(1.1);
+}
+
+.back-to-top:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
   .back-to-top {
-    display: none;
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    right: 16px;
   }
 }
 
@@ -1005,7 +1073,7 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 990;
+  z-index: var(--z-compare-bar);
   padding: 1rem 0;
   border-top: 1px solid rgba(255, 255, 255, .24);
   background: rgba(4, 50, 31, 0.95);
@@ -1055,7 +1123,7 @@ footer {
 .compare-modal {
   position: fixed;
   inset: 0;
-  z-index: 1010;
+  z-index: var(--z-modal);
   display: none;
   align-items: center;
   justify-content: center;
@@ -2665,7 +2733,7 @@ footer {
 .offline-banner {
   position: sticky;
   top: 0;
-  z-index: 1200;
+  z-index: var(--z-toast);
   padding: 10px 16px;
   text-align: center;
   color: #061A12;
@@ -2739,7 +2807,7 @@ footer {
     left: 12px;
     right: 12px;
     bottom: calc(12px + env(safe-area-inset-bottom));
-    z-index: 1100;
+    z-index: var(--z-bottom-nav);
 
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -2872,4 +2940,154 @@ footer {
   .mobile-bottom-nav {
     display: none;
   }
+}
+
+/* Correção de legibilidade para o rodapé do card de partidas */
+.match-card-info-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Força uma cor cinza clara legível para o texto do estádio e cidade */
+.match-card-info-footer .text-muted {
+  color: #A3AED0 !important; /* Mesma cor clara que usamos com sucesso no Footer */
+  opacity: 0.9 !important;
+}
+
+/* Estilo para garantir que o texto longo do estádio não quebre a linha de forma feia */
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0 10px;
+}
+
+/* Customização Premium e Legível para o Footer */
+.footer-palpitaria {
+  background: rgba(4, 32, 22, 0.85); /* Fundo um pouco mais denso para destacar do campo */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 767.98px) {
+  .footer-palpitaria {
+    margin-bottom: 70px; /* Mantém o respiro para o menu mobile */
+  }
+}
+
+.mascote-wrapper {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 200, 83, 0.3);
+  display: inline-flex;
+  transition: transform 0.3s ease;
+}
+
+.mascote-footerimg {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  display: block;
+  /* Remove o fundo branco se a imagem tiver cantos retos no arquivo original */
+  border-radius: 50%; 
+}
+
+.mascote-wrapper:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.app-title-footer {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  color: #F8FAFC; /* Branco limpo */
+  letter-spacing: 0.5px;
+}
+
+/* CORRIGIDO: Texto de desenvolvimento agora visível */
+.footer-palpitaria .text-muted {
+  color: #A3AED0 !important; /* Cinza claro azulado com ótimo contraste */
+}
+
+.developer-brand {
+  color: #FFD166; /* Dourado em destaque */
+  font-weight: 700;
+}
+
+.footer-link-item {
+  color: #E2E8F0; /* Links esbranquiçados para leitura rápida */
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footer-link-item:hover {
+  color: #00C853; /* Verde vibrante no hover */
+}
+
+/* CORRIGIDO: Ajuste do bloco legal e textos miúdos legíveis */
+.legal-disclaimer {
+  color: #94A3B8; /* Tom cinza claro legível */
+  line-height: 1.5;
+}
+
+.legal-text-tiny {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #64748B; /* Cinza médio/claro seguro para o fundo escuro */
+  max-width: 450px; /* Evita que o texto estique infinitamente para o lado */
+  margin-left: auto; /* Alinha o bloco à direita no desktop */
+}
+
+@media (max-width: 767.98px) {
+  .legal-text-tiny {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ===== Estilização Premium da Página Minha Copa (alto contraste) ===== */
+.my-cup-page h1 {
+  color: var(--color-text-primary) !important;
+}
+
+.my-cup-page p.lead {
+  color: var(--color-text-secondary) !important;
+}
+
+.my-cup-page .stat-card,
+.my-cup-page .feature-card {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.my-cup-page .stat-card h3,
+.my-cup-page .feature-card h3 {
+  color: var(--color-text-primary) !important;
+}
+
+.my-cup-page .stat-card p,
+.my-cup-page .feature-card p {
+  color: var(--color-text-secondary) !important;
+}
+
+.my-cup-page .info-box,
+.my-cup-page .notice {
+  background: rgba(243, 200, 68, 0.10) !important;
+  border: 1px solid rgba(243, 200, 68, 0.45) !important;
+  color: #f5e9b1 !important;
+}
+
+.my-cup-page .info-box strong,
+.my-cup-page .notice strong {
+  color: var(--color-gold) !important;
+}
+
+.my-cup-page .info-box p,
+.my-cup-page .notice p {
+  color: #f5e9b1 !important;
 }

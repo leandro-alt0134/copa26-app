@@ -44,6 +44,14 @@ export function generateMyCupShareText(data) {
 
 /**
  * Draws the Champion Card on HTML5 Canvas.
+ * 
+ * DESIGN DE BLINDAGEM DE ANÚNCIOS (AD-SHIELDING CANVAS ISOLATION):
+ * Este renderizador utiliza comandos diretos e programáticos no contexto 2D do Canvas (in-memory).
+ * Não são utilizadas ferramentas de captura do DOM (como html2canvas ou assemelhados).
+ * Desta forma, todas as áreas, scripts injetados do Google AdSense, tags <ins> ou banners (.ad-slot, .adsbygoogle)
+ * que estejam visíveis no fluxo do PWA são COMPLETAMENTE IGNORADOS e ISOLADOS. O card de compartilhamento gerado
+ * conterá única e exclusivamente a arte limpa do título, placar da final, posições e o perfil da Copa simulada.
+ * 
  * @param {CanvasRenderingContext2D} ctx 
  * @param {Object} data - Simulation state data
  * @param {Array} selecoes - List of team details (for resolving flags)

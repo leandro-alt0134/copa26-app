@@ -5,7 +5,7 @@ export default function BackToTop() {
 
   useEffect(() => {
     const alternarVisibilidade = () => {
-      if (window.scrollY > 360) {
+      if (window.scrollY > 600) {
         setVisible(true);
       } else {
         setVisible(false);

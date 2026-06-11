@@ -591,7 +591,7 @@ export default function MyPredictionCup() {
 
   // Render components based on step
   return (
-    <main className="container pb-5">
+    <main className="container pb-5 my-cup-page">
       {/* Page Title & Countdown header */}
       <section className="hero mb-4">
         <div className="row align-items-center g-0">

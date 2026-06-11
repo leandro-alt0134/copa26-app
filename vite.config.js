@@ -9,9 +9,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Guia da Copa do Mundo 2026',
-        short_name: 'Copa 2026',
-        description: 'Guia oficial, simulador do mata-mata, grupos e palpites interativos da Copa do Mundo 2026.',
+        name: 'Palpitaria da Copa',
+        short_name: 'Palpitaria',
+        description: 'Faça seus palpites para os jogos da Copa do Mundo.',
         theme_color: '#061A12',
         background_color: '#061A12',
         display: 'standalone',

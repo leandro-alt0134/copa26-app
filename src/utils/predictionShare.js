@@ -86,7 +86,14 @@ function desenharTextoComQuebra(ctx, text, x, y, maxWidth, lineHeight) {
 }
 
 /**
- * Desenha o Card no Canvas Otimizado para UI/UX
+ * Desenha o Card no Canvas Otimizado para UI/UX.
+ * 
+ * DESIGN DE BLINDAGEM DE ANÚNCIOS (AD-SHIELDING CANVAS ISOLATION):
+ * Este renderizador utiliza comandos diretos e programáticos no contexto 2D do Canvas (in-memory).
+ * Não são utilizadas ferramentas de captura do DOM (como html2canvas ou assemelhados).
+ * Desta forma, todas as áreas, scripts injetados do Google AdSense, tags <ins> ou banners (.ad-slot, .adsbygoogle)
+ * que estejam visíveis no fluxo do PWA são COMPLETAMENTE IGNORADOS e ISOLADOS. O card de compartilhamento gerado
+ * conterá única e exclusivamente a arte limpa do palpite, placares das seleções, badges oficiais e o perfil do usuário.
  */
 export function desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout = 'square') {
   const isStories = layout === 'stories';

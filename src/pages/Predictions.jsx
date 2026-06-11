@@ -31,6 +31,7 @@ import {
   desenharImagemArredondada,
   codigoParaEmojiBandeira 
 } from '../utils/predictionShare';
+import AdBlock from '../components/AdBlock';
 
 export default function Predictions() {
   const [partidas, setPartidas] = useState([]);
@@ -449,10 +450,7 @@ export default function Predictions() {
       </section>
 
       {/* Publicidade Superior */}
-      <section className="ad-slot mb-4" aria-label="Espaço para anúncio">
-        <span className="ad-slot__label">Publicidade</span>
-        <div className="ad-slot__placeholder">Espaço estratégico para Google AdSense — banner horizontal superior</div>
-      </section>
+      <AdBlock slot="predictions-top-banner" format="banner" />
 
       {/* Seletor de Confronto */}
       <MatchPicker 
@@ -532,10 +530,7 @@ export default function Predictions() {
 
       {/* Publicidade Intermediária */}
       {partidaAtual && (
-        <section className="ad-slot mb-4" aria-label="Espaço para anúncio">
-          <span className="ad-slot__label">Publicidade</span>
-          <div className="ad-slot__placeholder">Espaço para Google AdSense — anúncio intermediário</div>
-        </section>
+        <AdBlock slot="predictions-middle-rectangle" format="rectangle" />
       )}
 
       {/* Sugestão de Palpite e Formulário Final */}
@@ -563,10 +558,7 @@ export default function Predictions() {
       )}
 
       {/* Publicidade Inferior */}
-      <section className="ad-slot mb-4" aria-label="Espaço para anúncio">
-        <span className="ad-slot__label">Publicidade</span>
-        <div className="ad-slot__placeholder">Espaço para Google AdSense — anúncio inferior antes do histórico</div>
-      </section>
+      <AdBlock slot="predictions-bottom-banner" format="banner" />
 
       {/* Estatísticas Pessoais */}
       <PredictionStats palpites={palpitesSalvos} />

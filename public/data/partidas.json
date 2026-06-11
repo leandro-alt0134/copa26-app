@@ -8,7 +8,12 @@
     "escudoA": "escudos/mexico-escudo.svg",
     "escudoB": "escudos/africa-do-sul-escudo.svg",
     "bandeiraA": "square-flags/mexico.svg",
-    "bandeiraB": "square-flags/africa-do-sul.svg"
+    "bandeiraB": "square-flags/africa-do-sul.svg",
+    "data": "2026-06-11",
+    "horario": "16:00",
+    "estadio": "Estadio Azteca",
+    "cidade": "Cidade do México",
+    "pais": "México"
   },
   {
     "id": "grupo-a-rodada-1-coreia-do-sul-republica-tcheca",
@@ -19,7 +24,12 @@
     "escudoA": "escudos/coreia-do-sul-escudo.svg",
     "escudoB": "escudos/republica-tcheca-escudo.svg",
     "bandeiraA": "square-flags/coreia-do-sul.svg",
-    "bandeiraB": "square-flags/republica-tcheca.svg"
+    "bandeiraB": "square-flags/republica-tcheca.svg",
+    "data": "2026-06-11",
+    "horario": "23:00",
+    "estadio": "Estadio Akron",
+    "cidade": "Guadalajara",
+    "pais": "México"
   },
   {
     "id": "grupo-a-rodada-2-mexico-coreia-do-sul",
@@ -30,7 +40,12 @@
     "escudoA": "escudos/mexico-escudo.svg",
     "escudoB": "escudos/coreia-do-sul-escudo.svg",
     "bandeiraA": "square-flags/mexico.svg",
-    "bandeiraB": "square-flags/coreia-do-sul.svg"
+    "bandeiraB": "square-flags/coreia-do-sul.svg",
+    "data": "2026-06-18",
+    "horario": "23:30",
+    "estadio": "Estadio Akron",
+    "cidade": "Guadalajara",
+    "pais": "México"
   },
   {
     "id": "grupo-a-rodada-2-africa-do-sul-republica-tcheca",
@@ -41,7 +56,12 @@
     "escudoA": "escudos/africa-do-sul-escudo.svg",
     "escudoB": "escudos/republica-tcheca-escudo.svg",
     "bandeiraA": "square-flags/africa-do-sul.svg",
-    "bandeiraB": "square-flags/republica-tcheca.svg"
+    "bandeiraB": "square-flags/republica-tcheca.svg",
+    "data": "2026-06-18",
+    "horario": "13:00",
+    "estadio": "Mercedes-Benz Stadium",
+    "cidade": "Atlanta",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-a-rodada-3-mexico-republica-tcheca",
@@ -52,7 +72,12 @@
     "escudoA": "escudos/mexico-escudo.svg",
     "escudoB": "escudos/republica-tcheca-escudo.svg",
     "bandeiraA": "square-flags/mexico.svg",
-    "bandeiraB": "square-flags/republica-tcheca.svg"
+    "bandeiraB": "square-flags/republica-tcheca.svg",
+    "data": "2026-06-24",
+    "horario": "22:00",
+    "estadio": "Estadio Azteca",
+    "cidade": "Cidade do México",
+    "pais": "México"
   },
   {
     "id": "grupo-a-rodada-3-africa-do-sul-coreia-do-sul",
@@ -63,7 +88,12 @@
     "escudoA": "escudos/africa-do-sul-escudo.svg",
     "escudoB": "escudos/coreia-do-sul-escudo.svg",
     "bandeiraA": "square-flags/africa-do-sul.svg",
-    "bandeiraB": "square-flags/coreia-do-sul.svg"
+    "bandeiraB": "square-flags/coreia-do-sul.svg",
+    "data": "2026-06-24",
+    "horario": "22:00",
+    "estadio": "SoFi Stadium",
+    "cidade": "Los Angeles",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-b-rodada-1-canada-bosnia-e-herzegovina",
@@ -74,7 +104,12 @@
     "escudoA": "escudos/canada-escudo.svg",
     "escudoB": "escudos/bosnia-e-herzegovina-escudo.svg",
     "bandeiraA": "square-flags/canada.svg",
-    "bandeiraB": "square-flags/bosnia-e-herzegovina.svg"
+    "bandeiraB": "square-flags/bosnia-e-herzegovina.svg",
+    "data": "2026-06-12",
+    "horario": "16:00",
+    "estadio": "BMO Field",
+    "cidade": "Toronto",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-b-rodada-1-catar-suica",
@@ -85,7 +120,12 @@
     "escudoA": "escudos/catar-escudo.svg",
     "escudoB": "escudos/suica-escudo.svg",
     "bandeiraA": "square-flags/catar.svg",
-    "bandeiraB": "square-flags/suica.svg"
+    "bandeiraB": "square-flags/suica.svg",
+    "data": "2026-06-13",
+    "horario": "16:00",
+    "estadio": "Levi's Stadium",
+    "cidade": "San Francisco Bay Area",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-b-rodada-2-canada-catar",
@@ -96,7 +136,12 @@
     "escudoA": "escudos/canada-escudo.svg",
     "escudoB": "escudos/catar-escudo.svg",
     "bandeiraA": "square-flags/canada.svg",
-    "bandeiraB": "square-flags/catar.svg"
+    "bandeiraB": "square-flags/catar.svg",
+    "data": "2026-06-18",
+    "horario": "21:30",
+    "estadio": "BC Place",
+    "cidade": "Vancouver",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-b-rodada-2-bosnia-e-herzegovina-suica",
@@ -107,7 +152,12 @@
     "escudoA": "escudos/bosnia-e-herzegovina-escudo.svg",
     "escudoB": "escudos/suica-escudo.svg",
     "bandeiraA": "square-flags/bosnia-e-herzegovina.svg",
-    "bandeiraB": "square-flags/suica.svg"
+    "bandeiraB": "square-flags/suica.svg",
+    "data": "2026-06-18",
+    "horario": "15:00",
+    "estadio": "SoFi Stadium",
+    "cidade": "Los Angeles",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-b-rodada-3-canada-suica",
@@ -118,7 +168,12 @@
     "escudoA": "escudos/canada-escudo.svg",
     "escudoB": "escudos/suica-escudo.svg",
     "bandeiraA": "square-flags/canada.svg",
-    "bandeiraB": "square-flags/suica.svg"
+    "bandeiraB": "square-flags/suica.svg",
+    "data": "2026-06-24",
+    "horario": "15:00",
+    "estadio": "BMO Field",
+    "cidade": "Toronto",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-b-rodada-3-bosnia-e-herzegovina-catar",
@@ -129,7 +184,12 @@
     "escudoA": "escudos/bosnia-e-herzegovina-escudo.svg",
     "escudoB": "escudos/catar-escudo.svg",
     "bandeiraA": "square-flags/bosnia-e-herzegovina.svg",
-    "bandeiraB": "square-flags/catar.svg"
+    "bandeiraB": "square-flags/catar.svg",
+    "data": "2026-06-24",
+    "horario": "15:00",
+    "estadio": "Boston Stadium",
+    "cidade": "Boston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-c-rodada-1-brasil-marrocos",
@@ -140,7 +200,12 @@
     "escudoA": "escudos/brasil-escudo.svg",
     "escudoB": "escudos/marrocos-escudo.svg",
     "bandeiraA": "square-flags/brasil.svg",
-    "bandeiraB": "square-flags/marrocos.svg"
+    "bandeiraB": "square-flags/marrocos.svg",
+    "data": "2026-06-13",
+    "horario": "19:00",
+    "estadio": "MetLife Stadium",
+    "cidade": "Nova York / Nova Jersey",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-c-rodada-1-haiti-escocia",
@@ -151,7 +216,12 @@
     "escudoA": "escudos/haiti-escudo.svg",
     "escudoB": "escudos/escocia-escudo.svg",
     "bandeiraA": "square-flags/haiti.svg",
-    "bandeiraB": "square-flags/escocia.svg"
+    "bandeiraB": "square-flags/escocia.svg",
+    "data": "2026-06-13",
+    "horario": "22:00",
+    "estadio": "Gillette Stadium",
+    "cidade": "Boston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-c-rodada-2-brasil-haiti",
@@ -162,7 +232,12 @@
     "escudoA": "escudos/brasil-escudo.svg",
     "escudoB": "escudos/haiti-escudo.svg",
     "bandeiraA": "square-flags/brasil.svg",
-    "bandeiraB": "square-flags/haiti.svg"
+    "bandeiraB": "square-flags/haiti.svg",
+    "data": "2026-06-19",
+    "horario": "21:30",
+    "estadio": "Lincoln Financial Field",
+    "cidade": "Filadélfia",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-c-rodada-2-marrocos-escocia",
@@ -173,7 +248,12 @@
     "escudoA": "escudos/marrocos-escudo.svg",
     "escudoB": "escudos/escocia-escudo.svg",
     "bandeiraA": "square-flags/marrocos.svg",
-    "bandeiraB": "square-flags/escocia.svg"
+    "bandeiraB": "square-flags/escocia.svg",
+    "data": "2026-06-19",
+    "horario": "19:00",
+    "estadio": "Gillette Stadium",
+    "cidade": "Boston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-c-rodada-3-brasil-escocia",
@@ -184,7 +264,12 @@
     "escudoA": "escudos/brasil-escudo.svg",
     "escudoB": "escudos/escocia-escudo.svg",
     "bandeiraA": "square-flags/brasil.svg",
-    "bandeiraB": "square-flags/escocia.svg"
+    "bandeiraB": "square-flags/escocia.svg",
+    "data": "2026-06-24",
+    "horario": "19:00",
+    "estadio": "Hard Rock Stadium",
+    "cidade": "Miami",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-c-rodada-3-marrocos-haiti",
@@ -195,7 +280,12 @@
     "escudoA": "escudos/marrocos-escudo.svg",
     "escudoB": "escudos/haiti-escudo.svg",
     "bandeiraA": "square-flags/marrocos.svg",
-    "bandeiraB": "square-flags/haiti.svg"
+    "bandeiraB": "square-flags/haiti.svg",
+    "data": "2026-06-24",
+    "horario": "19:00",
+    "estadio": "Mercedes-Benz Stadium",
+    "cidade": "Atlanta",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-d-rodada-1-estados-unidos-paraguai",
@@ -206,7 +296,12 @@
     "escudoA": "escudos/estados-unidos-escudo.svg",
     "escudoB": "escudos/paraguai-escudo.svg",
     "bandeiraA": "square-flags/estados-unidos.svg",
-    "bandeiraB": "square-flags/paraguai.svg"
+    "bandeiraB": "square-flags/paraguai.svg",
+    "data": "2026-06-12",
+    "horario": "22:00",
+    "estadio": "SoFi Stadium",
+    "cidade": "Los Angeles",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-d-rodada-1-australia-turquia",
@@ -217,7 +312,12 @@
     "escudoA": "escudos/australia-escudo.svg",
     "escudoB": "escudos/turquia-escudo.svg",
     "bandeiraA": "square-flags/australia.svg",
-    "bandeiraB": "square-flags/turquia.svg"
+    "bandeiraB": "square-flags/turquia.svg",
+    "data": "2026-06-13",
+    "horario": "01:00",
+    "estadio": "BC Place",
+    "cidade": "Vancouver",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-d-rodada-2-estados-unidos-australia",
@@ -228,7 +328,12 @@
     "escudoA": "escudos/estados-unidos-escudo.svg",
     "escudoB": "escudos/australia-escudo.svg",
     "bandeiraA": "square-flags/estados-unidos.svg",
-    "bandeiraB": "square-flags/australia.svg"
+    "bandeiraB": "square-flags/australia.svg",
+    "data": "2026-06-19",
+    "horario": "23:00",
+    "estadio": "Levi's Stadium",
+    "cidade": "San Francisco Bay Area",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-d-rodada-2-paraguai-turquia",
@@ -239,7 +344,12 @@
     "escudoA": "escudos/paraguai-escudo.svg",
     "escudoB": "escudos/turquia-escudo.svg",
     "bandeiraA": "square-flags/paraguai.svg",
-    "bandeiraB": "square-flags/turquia.svg"
+    "bandeiraB": "square-flags/turquia.svg",
+    "data": "2026-06-20",
+    "horario": "08:30",
+    "estadio": "Levi's Stadium",
+    "cidade": "San Francisco Bay Area",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-d-rodada-3-estados-unidos-turquia",
@@ -250,7 +360,12 @@
     "escudoA": "escudos/estados-unidos-escudo.svg",
     "escudoB": "escudos/turquia-escudo.svg",
     "bandeiraA": "square-flags/estados-unidos.svg",
-    "bandeiraB": "square-flags/turquia.svg"
+    "bandeiraB": "square-flags/turquia.svg",
+    "data": "2026-06-25",
+    "horario": "17:00",
+    "estadio": "Arrowhead Stadium",
+    "cidade": "Kansas City",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-d-rodada-3-paraguai-australia",
@@ -261,7 +376,12 @@
     "escudoA": "escudos/paraguai-escudo.svg",
     "escudoB": "escudos/australia-escudo.svg",
     "bandeiraA": "square-flags/paraguai.svg",
-    "bandeiraB": "square-flags/australia.svg"
+    "bandeiraB": "square-flags/australia.svg",
+    "data": "2026-06-25",
+    "horario": "17:00",
+    "estadio": "Lincoln Financial Field",
+    "cidade": "Filadélfia",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-e-rodada-1-alemanha-curacao",
@@ -272,7 +392,12 @@
     "escudoA": "escudos/alemanha-escudo.svg",
     "escudoB": "escudos/curacao-escudo.svg",
     "bandeiraA": "square-flags/alemanha.svg",
-    "bandeiraB": "square-flags/curacao.svg"
+    "bandeiraB": "square-flags/curacao.svg",
+    "data": "2026-06-14",
+    "horario": "14:00",
+    "estadio": "NRG Stadium",
+    "cidade": "Houston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-e-rodada-1-costa-do-marfim-equador",
@@ -283,7 +408,12 @@
     "escudoA": "escudos/costa-do-marfim-escudo.svg",
     "escudoB": "escudos/equador-escudo.svg",
     "bandeiraA": "square-flags/costa-do-marfim.svg",
-    "bandeiraB": "square-flags/equador.svg"
+    "bandeiraB": "square-flags/equador.svg",
+    "data": "2026-06-14",
+    "horario": "20:00",
+    "estadio": "Lincoln Financial Field",
+    "cidade": "Filadélfia",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-e-rodada-2-alemanha-costa-do-marfim",
@@ -294,7 +424,12 @@
     "escudoA": "escudos/alemanha-escudo.svg",
     "escudoB": "escudos/costa-do-marfim-escudo.svg",
     "bandeiraA": "square-flags/alemanha.svg",
-    "bandeiraB": "square-flags/costa-do-marfim.svg"
+    "bandeiraB": "square-flags/costa-do-marfim.svg",
+    "data": "2026-06-20",
+    "horario": "15:00",
+    "estadio": "BMO Field",
+    "cidade": "Toronto",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-e-rodada-2-curacao-equador",
@@ -305,7 +440,12 @@
     "escudoA": "escudos/curacao-escudo.svg",
     "escudoB": "escudos/equador-escudo.svg",
     "bandeiraA": "square-flags/curacao.svg",
-    "bandeiraB": "square-flags/equador.svg"
+    "bandeiraB": "square-flags/equador.svg",
+    "data": "2026-06-21",
+    "horario": "05:30",
+    "estadio": "BMO Field",
+    "cidade": "Toronto",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-e-rodada-3-alemanha-equador",
@@ -316,7 +456,12 @@
     "escudoA": "escudos/alemanha-escudo.svg",
     "escudoB": "escudos/equador-escudo.svg",
     "bandeiraA": "square-flags/alemanha.svg",
-    "bandeiraB": "square-flags/equador.svg"
+    "bandeiraB": "square-flags/equador.svg",
+    "data": "2026-06-25",
+    "horario": "14:00",
+    "estadio": "MetLife Stadium",
+    "cidade": "Nova York / Nova Jersey",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-e-rodada-3-curacao-costa-do-marfim",
@@ -327,7 +472,12 @@
     "escudoA": "escudos/curacao-escudo.svg",
     "escudoB": "escudos/costa-do-marfim-escudo.svg",
     "bandeiraA": "square-flags/curacao.svg",
-    "bandeiraB": "square-flags/costa-do-marfim.svg"
+    "bandeiraB": "square-flags/costa-do-marfim.svg",
+    "data": "2026-06-25",
+    "horario": "14:00",
+    "estadio": "BC Place",
+    "cidade": "Vancouver",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-f-rodada-1-holanda-japao",
@@ -338,7 +488,12 @@
     "escudoA": "escudos/holanda-escudo.svg",
     "escudoB": "escudos/japao-escudo.svg",
     "bandeiraA": "square-flags/holanda.svg",
-    "bandeiraB": "square-flags/japao.svg"
+    "bandeiraB": "square-flags/japao.svg",
+    "data": "2026-06-14",
+    "horario": "17:00",
+    "estadio": "AT&T Stadium",
+    "cidade": "Dallas",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-f-rodada-1-suecia-tunisia",
@@ -349,7 +504,12 @@
     "escudoA": "escudos/suecia-escudo.svg",
     "escudoB": "escudos/tunisia-escudo.svg",
     "bandeiraA": "square-flags/suecia.svg",
-    "bandeiraB": "square-flags/tunisia.svg"
+    "bandeiraB": "square-flags/tunisia.svg",
+    "data": "2026-06-14",
+    "horario": "23:00",
+    "estadio": "Estadio BBVA",
+    "cidade": "Monterrey",
+    "pais": "México"
   },
   {
     "id": "grupo-f-rodada-2-holanda-suecia",
@@ -360,7 +520,12 @@
     "escudoA": "escudos/holanda-escudo.svg",
     "escudoB": "escudos/suecia-escudo.svg",
     "bandeiraA": "square-flags/holanda.svg",
-    "bandeiraB": "square-flags/suecia.svg"
+    "bandeiraB": "square-flags/suecia.svg",
+    "data": "2026-06-20",
+    "horario": "14:00",
+    "estadio": "NRG Stadium",
+    "cidade": "Houston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-f-rodada-2-japao-tunisia",
@@ -371,7 +536,12 @@
     "escudoA": "escudos/japao-escudo.svg",
     "escudoB": "escudos/tunisia-escudo.svg",
     "bandeiraA": "square-flags/japao.svg",
-    "bandeiraB": "square-flags/tunisia.svg"
+    "bandeiraB": "square-flags/tunisia.svg",
+    "data": "2026-06-21",
+    "horario": "01:00",
+    "estadio": "Estadio BBVA",
+    "cidade": "Monterrey",
+    "pais": "México"
   },
   {
     "id": "grupo-f-rodada-3-holanda-tunisia",
@@ -382,7 +552,12 @@
     "escudoA": "escudos/holanda-escudo.svg",
     "escudoB": "escudos/tunisia-escudo.svg",
     "bandeiraA": "square-flags/holanda.svg",
-    "bandeiraB": "square-flags/tunisia.svg"
+    "bandeiraB": "square-flags/tunisia.svg",
+    "data": "2026-06-25",
+    "horario": "20:00",
+    "estadio": "Arrowhead Stadium",
+    "cidade": "Kansas City",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-f-rodada-3-japao-suecia",
@@ -393,7 +568,12 @@
     "escudoA": "escudos/japao-escudo.svg",
     "escudoB": "escudos/suecia-escudo.svg",
     "bandeiraA": "square-flags/japao.svg",
-    "bandeiraB": "square-flags/suecia.svg"
+    "bandeiraB": "square-flags/suecia.svg",
+    "data": "2026-06-25",
+    "horario": "20:00",
+    "estadio": "AT&T Stadium",
+    "cidade": "Dallas",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-g-rodada-1-belgica-egito",
@@ -404,7 +584,12 @@
     "escudoA": "escudos/belgica-escudo.svg",
     "escudoB": "escudos/egito-escudo.svg",
     "bandeiraA": "square-flags/belgica.svg",
-    "bandeiraB": "square-flags/egito.svg"
+    "bandeiraB": "square-flags/egito.svg",
+    "data": "2026-06-15",
+    "horario": "15:00",
+    "estadio": "Lumen Field",
+    "cidade": "Seattle",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-g-rodada-1-ira-nova-zelandia",
@@ -415,7 +600,12 @@
     "escudoA": "escudos/ira-escudo.svg",
     "escudoB": "escudos/nova-zelandia-escudo.svg",
     "bandeiraA": "square-flags/ira.svg",
-    "bandeiraB": "square-flags/nova-zelandia.svg"
+    "bandeiraB": "square-flags/nova-zelandia.svg",
+    "data": "2026-06-15",
+    "horario": "21:00",
+    "estadio": "SoFi Stadium",
+    "cidade": "Los Angeles",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-g-rodada-2-belgica-ira",
@@ -426,7 +616,12 @@
     "escudoA": "escudos/belgica-escudo.svg",
     "escudoB": "escudos/ira-escudo.svg",
     "bandeiraA": "square-flags/belgica.svg",
-    "bandeiraB": "square-flags/ira.svg"
+    "bandeiraB": "square-flags/ira.svg",
+    "data": "2026-06-22",
+    "horario": "00:00",
+    "estadio": "Arrowhead Stadium",
+    "cidade": "Kansas City",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-g-rodada-2-egito-nova-zelandia",
@@ -437,7 +632,12 @@
     "escudoA": "escudos/egito-escudo.svg",
     "escudoB": "escudos/nova-zelandia-escudo.svg",
     "bandeiraA": "square-flags/egito.svg",
-    "bandeiraB": "square-flags/nova-zelandia.svg"
+    "bandeiraB": "square-flags/nova-zelandia.svg",
+    "data": "2026-06-22",
+    "horario": "06:30",
+    "estadio": "Arrowhead Stadium",
+    "cidade": "Kansas City",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-g-rodada-3-belgica-nova-zelandia",
@@ -448,7 +648,12 @@
     "escudoA": "escudos/belgica-escudo.svg",
     "escudoB": "escudos/nova-zelandia-escudo.svg",
     "bandeiraA": "square-flags/belgica.svg",
-    "bandeiraB": "square-flags/nova-zelandia.svg"
+    "bandeiraB": "square-flags/nova-zelandia.svg",
+    "data": "2026-06-26",
+    "horario": "15:00",
+    "estadio": "Levi's Stadium",
+    "cidade": "San Francisco Bay Area",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-g-rodada-3-egito-ira",
@@ -459,7 +664,12 @@
     "escudoA": "escudos/egito-escudo.svg",
     "escudoB": "escudos/ira-escudo.svg",
     "bandeiraA": "square-flags/egito.svg",
-    "bandeiraB": "square-flags/ira.svg"
+    "bandeiraB": "square-flags/ira.svg",
+    "data": "2026-06-26",
+    "horario": "15:00",
+    "estadio": "Lumen Field",
+    "cidade": "Seattle",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-h-rodada-1-espanha-cabo-verde",
@@ -470,7 +680,12 @@
     "escudoA": "escudos/espanha-escudo.svg",
     "escudoB": "escudos/cabo-verde-escudo.svg",
     "bandeiraA": "square-flags/espanha.svg",
-    "bandeiraB": "square-flags/cabo-verde.svg"
+    "bandeiraB": "square-flags/cabo-verde.svg",
+    "data": "2026-06-15",
+    "horario": "13:00",
+    "estadio": "Mercedes-Benz Stadium",
+    "cidade": "Atlanta",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-h-rodada-1-arabia-saudita-uruguai",
@@ -481,7 +696,12 @@
     "escudoA": "escudos/arabia-saudita-escudo.svg",
     "escudoB": "escudos/uruguai-escudo.svg",
     "bandeiraA": "square-flags/arabia-saudita.svg",
-    "bandeiraB": "square-flags/uruguai.svg"
+    "bandeiraB": "square-flags/uruguai.svg",
+    "data": "2026-06-15",
+    "horario": "19:00",
+    "estadio": "Hard Rock Stadium",
+    "cidade": "Miami",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-h-rodada-2-espanha-arabia-saudita",
@@ -492,7 +712,12 @@
     "escudoA": "escudos/espanha-escudo.svg",
     "escudoB": "escudos/arabia-saudita-escudo.svg",
     "bandeiraA": "square-flags/espanha.svg",
-    "bandeiraB": "square-flags/arabia-saudita.svg"
+    "bandeiraB": "square-flags/arabia-saudita.svg",
+    "data": "2026-06-21",
+    "horario": "13:00",
+    "estadio": "Mercedes-Benz Stadium",
+    "cidade": "Atlanta",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-h-rodada-2-cabo-verde-uruguai",
@@ -503,7 +728,12 @@
     "escudoA": "escudos/cabo-verde-escudo.svg",
     "escudoB": "escudos/uruguai-escudo.svg",
     "bandeiraA": "square-flags/cabo-verde.svg",
-    "bandeiraB": "square-flags/uruguai.svg"
+    "bandeiraB": "square-flags/uruguai.svg",
+    "data": "2026-06-21",
+    "horario": "19:00",
+    "estadio": "Hard Rock Stadium",
+    "cidade": "Miami",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-h-rodada-3-espanha-uruguai",
@@ -514,7 +744,12 @@
     "escudoA": "escudos/espanha-escudo.svg",
     "escudoB": "escudos/uruguai-escudo.svg",
     "bandeiraA": "square-flags/espanha.svg",
-    "bandeiraB": "square-flags/uruguai.svg"
+    "bandeiraB": "square-flags/uruguai.svg",
+    "data": "2026-06-26",
+    "horario": "21:00",
+    "estadio": "Estadio Akron",
+    "cidade": "Guadalajara",
+    "pais": "México"
   },
   {
     "id": "grupo-h-rodada-3-cabo-verde-arabia-saudita",
@@ -525,7 +760,12 @@
     "escudoA": "escudos/cabo-verde-escudo.svg",
     "escudoB": "escudos/arabia-saudita-escudo.svg",
     "bandeiraA": "square-flags/cabo-verde.svg",
-    "bandeiraB": "square-flags/arabia-saudita.svg"
+    "bandeiraB": "square-flags/arabia-saudita.svg",
+    "data": "2026-06-26",
+    "horario": "21:00",
+    "estadio": "NRG Stadium",
+    "cidade": "Houston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-i-rodada-1-franca-senegal",
@@ -536,7 +776,12 @@
     "escudoA": "escudos/franca-escudo.svg",
     "escudoB": "escudos/senegal-escudo.svg",
     "bandeiraA": "square-flags/franca.svg",
-    "bandeiraB": "square-flags/senegal.svg"
+    "bandeiraB": "square-flags/senegal.svg",
+    "data": "2026-06-16",
+    "horario": "16:00",
+    "estadio": "MetLife Stadium",
+    "cidade": "Nova York / Nova Jersey",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-i-rodada-1-iraque-noruega",
@@ -547,7 +792,12 @@
     "escudoA": "escudos/iraque-escudo.svg",
     "escudoB": "escudos/noruega-escudo.svg",
     "bandeiraA": "square-flags/iraque.svg",
-    "bandeiraB": "square-flags/noruega.svg"
+    "bandeiraB": "square-flags/noruega.svg",
+    "data": "2026-06-16",
+    "horario": "19:00",
+    "estadio": "Gillette Stadium",
+    "cidade": "Boston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-i-rodada-2-franca-iraque",
@@ -558,7 +808,12 @@
     "escudoA": "escudos/franca-escudo.svg",
     "escudoB": "escudos/iraque-escudo.svg",
     "bandeiraA": "square-flags/franca.svg",
-    "bandeiraB": "square-flags/iraque.svg"
+    "bandeiraB": "square-flags/iraque.svg",
+    "data": "2026-06-22",
+    "horario": "18:00",
+    "estadio": "Lincoln Financial Field",
+    "cidade": "Filadélfia",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-i-rodada-2-senegal-noruega",
@@ -569,7 +824,12 @@
     "escudoA": "escudos/senegal-escudo.svg",
     "escudoB": "escudos/noruega-escudo.svg",
     "bandeiraA": "square-flags/senegal.svg",
-    "bandeiraB": "square-flags/noruega.svg"
+    "bandeiraB": "square-flags/noruega.svg",
+    "data": "2026-06-22",
+    "horario": "21:00",
+    "estadio": "MetLife Stadium",
+    "cidade": "Nova York / Nova Jersey",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-i-rodada-3-franca-noruega",
@@ -580,7 +840,12 @@
     "escudoA": "escudos/franca-escudo.svg",
     "escudoB": "escudos/noruega-escudo.svg",
     "bandeiraA": "square-flags/franca.svg",
-    "bandeiraB": "square-flags/noruega.svg"
+    "bandeiraB": "square-flags/noruega.svg",
+    "data": "2026-06-26",
+    "horario": "16:00",
+    "estadio": "Gillette Stadium",
+    "cidade": "Boston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-i-rodada-3-senegal-iraque",
@@ -591,7 +856,12 @@
     "escudoA": "escudos/senegal-escudo.svg",
     "escudoB": "escudos/iraque-escudo.svg",
     "bandeiraA": "square-flags/senegal.svg",
-    "bandeiraB": "square-flags/iraque.svg"
+    "bandeiraB": "square-flags/iraque.svg",
+    "data": "2026-06-26",
+    "horario": "16:00",
+    "estadio": "BMO Field",
+    "cidade": "Toronto",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-j-rodada-1-argentina-argelia",
@@ -602,7 +872,12 @@
     "escudoA": "escudos/argentina-escudo.svg",
     "escudoB": "escudos/argelia-escudo.svg",
     "bandeiraA": "square-flags/argentina.svg",
-    "bandeiraB": "square-flags/argelia.svg"
+    "bandeiraB": "square-flags/argelia.svg",
+    "data": "2026-06-16",
+    "horario": "22:00",
+    "estadio": "Arrowhead Stadium",
+    "cidade": "Kansas City",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-j-rodada-1-austria-jordania",
@@ -613,7 +888,12 @@
     "escudoA": "escudos/austria-escudo.svg",
     "escudoB": "escudos/jordania-escudo.svg",
     "bandeiraA": "square-flags/austria.svg",
-    "bandeiraB": "square-flags/jordania.svg"
+    "bandeiraB": "square-flags/jordania.svg",
+    "data": "2026-06-17",
+    "horario": "01:00",
+    "estadio": "Levi's Stadium",
+    "cidade": "San Francisco Bay Area",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-j-rodada-2-argentina-austria",
@@ -624,7 +904,12 @@
     "escudoA": "escudos/argentina-escudo.svg",
     "escudoB": "escudos/austria-escudo.svg",
     "bandeiraA": "square-flags/argentina.svg",
-    "bandeiraB": "square-flags/austria.svg"
+    "bandeiraB": "square-flags/austria.svg",
+    "data": "2026-06-22",
+    "horario": "14:00",
+    "estadio": "AT&T Stadium",
+    "cidade": "Dallas",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-j-rodada-2-argelia-jordania",
@@ -635,7 +920,12 @@
     "escudoA": "escudos/argelia-escudo.svg",
     "escudoB": "escudos/jordania-escudo.svg",
     "bandeiraA": "square-flags/argelia.svg",
-    "bandeiraB": "square-flags/jordania.svg"
+    "bandeiraB": "square-flags/jordania.svg",
+    "data": "2026-06-23",
+    "horario": "00:00",
+    "estadio": "Levi's Stadium",
+    "cidade": "San Francisco Bay Area",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-j-rodada-3-argentina-jordania",
@@ -646,7 +936,12 @@
     "escudoA": "escudos/argentina-escudo.svg",
     "escudoB": "escudos/jordania-escudo.svg",
     "bandeiraA": "square-flags/argentina.svg",
-    "bandeiraB": "square-flags/jordania.svg"
+    "bandeiraB": "square-flags/jordania.svg",
+    "data": "2026-06-27",
+    "horario": "23:00",
+    "estadio": "AT&T Stadium",
+    "cidade": "Dallas",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-j-rodada-3-argelia-austria",
@@ -657,7 +952,12 @@
     "escudoA": "escudos/argelia-escudo.svg",
     "escudoB": "escudos/austria-escudo.svg",
     "bandeiraA": "square-flags/argelia.svg",
-    "bandeiraB": "square-flags/austria.svg"
+    "bandeiraB": "square-flags/austria.svg",
+    "data": "2026-06-27",
+    "horario": "23:00",
+    "estadio": "Arrowhead Stadium",
+    "cidade": "Kansas City",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-k-rodada-1-portugal-rd-congo",
@@ -668,7 +968,12 @@
     "escudoA": "escudos/portugal-escudo.svg",
     "escudoB": "escudos/rd-congo-escudo.svg",
     "bandeiraA": "square-flags/portugal.svg",
-    "bandeiraB": "square-flags/rd-congo.svg"
+    "bandeiraB": "square-flags/rd-congo.svg",
+    "data": "2026-06-17",
+    "horario": "22:00",
+    "estadio": "NRG Stadium",
+    "cidade": "Houston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-k-rodada-1-uzbequistao-colombia",
@@ -679,7 +984,12 @@
     "escudoA": "escudos/uzbequistao-escudo.svg",
     "escudoB": "escudos/colombia-escudo.svg",
     "bandeiraA": "square-flags/uzbequistao.svg",
-    "bandeiraB": "square-flags/colombia.svg"
+    "bandeiraB": "square-flags/colombia.svg",
+    "data": "2026-06-17",
+    "horario": "15:00",
+    "estadio": "Estadio Azteca",
+    "cidade": "Cidade do México",
+    "pais": "México"
   },
   {
     "id": "grupo-k-rodada-2-portugal-uzbequistao",
@@ -690,7 +1000,12 @@
     "escudoA": "escudos/portugal-escudo.svg",
     "escudoB": "escudos/uzbequistao-escudo.svg",
     "bandeiraA": "square-flags/portugal.svg",
-    "bandeiraB": "square-flags/uzbequistao.svg"
+    "bandeiraB": "square-flags/uzbequistao.svg",
+    "data": "2026-06-23",
+    "horario": "22:00",
+    "estadio": "NRG Stadium",
+    "cidade": "Houston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-k-rodada-2-rd-congo-colombia",
@@ -701,7 +1016,12 @@
     "escudoA": "escudos/rd-congo-escudo.svg",
     "escudoB": "escudos/colombia-escudo.svg",
     "bandeiraA": "square-flags/rd-congo.svg",
-    "bandeiraB": "square-flags/colombia.svg"
+    "bandeiraB": "square-flags/colombia.svg",
+    "data": "2026-06-24",
+    "horario": "07:30",
+    "estadio": "Estadio Azteca",
+    "cidade": "Cidade do México",
+    "pais": "México"
   },
   {
     "id": "grupo-k-rodada-3-portugal-colombia",
@@ -712,7 +1032,12 @@
     "escudoA": "escudos/portugal-escudo.svg",
     "escudoB": "escudos/colombia-escudo.svg",
     "bandeiraA": "square-flags/portugal.svg",
-    "bandeiraB": "square-flags/colombia.svg"
+    "bandeiraB": "square-flags/colombia.svg",
+    "data": "2026-06-28",
+    "horario": "05:00",
+    "estadio": "Mercedes-Benz Stadium",
+    "cidade": "Atlanta",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-k-rodada-3-rd-congo-uzbequistao",
@@ -723,7 +1048,12 @@
     "escudoA": "escudos/rd-congo-escudo.svg",
     "escudoB": "escudos/uzbequistao-escudo.svg",
     "bandeiraA": "square-flags/rd-congo.svg",
-    "bandeiraB": "square-flags/uzbequistao.svg"
+    "bandeiraB": "square-flags/uzbequistao.svg",
+    "data": "2026-06-28",
+    "horario": "05:00",
+    "estadio": "Lincoln Financial Field",
+    "cidade": "Filadélfia",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-l-rodada-1-inglaterra-croacia",
@@ -734,7 +1064,12 @@
     "escudoA": "escudos/inglaterra-escudo.svg",
     "escudoB": "escudos/croacia-escudo.svg",
     "bandeiraA": "square-flags/inglaterra.svg",
-    "bandeiraB": "square-flags/croacia.svg"
+    "bandeiraB": "square-flags/croacia.svg",
+    "data": "2026-06-17",
+    "horario": "17:00",
+    "estadio": "AT&T Stadium",
+    "cidade": "Dallas",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-l-rodada-1-gana-panama",
@@ -745,7 +1080,12 @@
     "escudoA": "escudos/gana-escudo.svg",
     "escudoB": "escudos/panama-escudo.svg",
     "bandeiraA": "square-flags/gana.svg",
-    "bandeiraB": "square-flags/panama.svg"
+    "bandeiraB": "square-flags/panama.svg",
+    "data": "2026-06-17",
+    "horario": "20:00",
+    "estadio": "BMO Field",
+    "cidade": "Toronto",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-l-rodada-2-inglaterra-gana",
@@ -756,7 +1096,12 @@
     "escudoA": "escudos/inglaterra-escudo.svg",
     "escudoB": "escudos/gana-escudo.svg",
     "bandeiraA": "square-flags/inglaterra.svg",
-    "bandeiraB": "square-flags/gana.svg"
+    "bandeiraB": "square-flags/gana.svg",
+    "data": "2026-06-23",
+    "horario": "17:00",
+    "estadio": "Gillette Stadium",
+    "cidade": "Boston",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-l-rodada-2-croacia-panama",
@@ -767,7 +1112,12 @@
     "escudoA": "escudos/croacia-escudo.svg",
     "escudoB": "escudos/panama-escudo.svg",
     "bandeiraA": "square-flags/croacia.svg",
-    "bandeiraB": "square-flags/panama.svg"
+    "bandeiraB": "square-flags/panama.svg",
+    "data": "2026-06-23",
+    "horario": "20:00",
+    "estadio": "BMO Field",
+    "cidade": "Toronto",
+    "pais": "Canadá"
   },
   {
     "id": "grupo-l-rodada-3-inglaterra-panama",
@@ -778,7 +1128,12 @@
     "escudoA": "escudos/inglaterra-escudo.svg",
     "escudoB": "escudos/panama-escudo.svg",
     "bandeiraA": "square-flags/inglaterra.svg",
-    "bandeiraB": "square-flags/panama.svg"
+    "bandeiraB": "square-flags/panama.svg",
+    "data": "2026-06-27",
+    "horario": "18:00",
+    "estadio": "MetLife Stadium",
+    "cidade": "Nova York / Nova Jersey",
+    "pais": "Estados Unidos"
   },
   {
     "id": "grupo-l-rodada-3-croacia-gana",
@@ -789,6 +1144,11 @@
     "escudoA": "escudos/croacia-escudo.svg",
     "escudoB": "escudos/gana-escudo.svg",
     "bandeiraA": "square-flags/croacia.svg",
-    "bandeiraB": "square-flags/gana.svg"
+    "bandeiraB": "square-flags/gana.svg",
+    "data": "2026-06-27",
+    "horario": "19:00",
+    "estadio": "Lincoln Financial Field",
+    "cidade": "Filadélfia",
+    "pais": "Estados Unidos"
   }
 ]
