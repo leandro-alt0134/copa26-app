@@ -1,11 +1,9 @@
-const STORAGE_KEY = "copa2026_palpites";
+import { getAppData, saveAppData } from '../services/storage/storageAdapter';
+import { STORAGE_KEYS } from '../services/storage/storageKeys';
 
 export function carregarPalpites() {
   try {
-    const dados = localStorage.getItem(STORAGE_KEY);
-    if (!dados) return [];
-    
-    const lista = JSON.parse(dados);
+    const lista = getAppData(STORAGE_KEYS.PALPITES, []);
     if (!Array.isArray(lista)) return [];
 
     // Aplicar retrocompatibilidade com dados antigos
@@ -23,7 +21,7 @@ export function carregarPalpites() {
       };
     });
   } catch (err) {
-    console.error("Erro ao carregar palpites do localStorage:", err);
+    console.error("Erro ao carregar palpites:", err);
     return [];
   }
 }
@@ -48,44 +46,38 @@ export function salvarPalpite(palpite) {
       palpites.push(novoPalpite);
     }
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(palpites));
-    return true;
+    return saveAppData(STORAGE_KEYS.PALPITES, palpites);
   } catch (err) {
-    console.error("Erro ao salvar palpite no localStorage:", err);
+    console.error("Erro ao salvar palpite:", err);
     return false;
   }
 }
 
 export function limparTodosPalpites() {
   try {
-    localStorage.removeItem(STORAGE_KEY);
-    return true;
+    return saveAppData(STORAGE_KEYS.PALPITES, []);
   } catch (err) {
-    console.error("Erro ao limpar palpites do localStorage:", err);
+    console.error("Erro ao limpar palpites:", err);
     return false;
   }
 }
 
-const MATCHES_STORAGE_KEY = "copa2026_partidas_atualizadas";
-
 export function carregarPartidasAtualizadas() {
   try {
-    const dados = localStorage.getItem(MATCHES_STORAGE_KEY);
-    if (!dados) return null;
-    return JSON.parse(dados);
+    return getAppData(STORAGE_KEYS.PARTIDAS_ATUALIZADAS, null);
   } catch (err) {
-    console.error("Erro ao carregar partidas atualizadas do localStorage:", err);
+    console.error("Erro ao carregar partidas atualizadas:", err);
     return null;
   }
 }
 
 export function salvarPartidasAtualizadas(partidas) {
   try {
-    localStorage.setItem(MATCHES_STORAGE_KEY, JSON.stringify(partidas));
-    return true;
+    return saveAppData(STORAGE_KEYS.PARTIDAS_ATUALIZADAS, partidas);
   } catch (err) {
-    console.error("Erro ao salvar partidas atualizadas no localStorage:", err);
+    console.error("Erro ao salvar partidas atualizadas:", err);
     return false;
   }
 }
+
 

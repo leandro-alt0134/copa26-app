@@ -1,0 +1,17 @@
+/* Definição de fontes locais para a aplicação independente */
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/fonts/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}

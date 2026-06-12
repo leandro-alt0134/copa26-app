@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Countdown from '../components/Countdown';
 import { buscarResultadosReais } from '../utils/soccerApi';
 import { carregarPartidasAtualizadas, salvarPartidasAtualizadas } from '../utils/predictionStorage';
-import AdBlock from '../components/AdBlock';
+import AdPlacement from '../components/ads/AdPlacement';
 
 export default function Matches() {
   const [partidas, setPartidas] = useState([]);
@@ -108,7 +108,7 @@ export default function Matches() {
       </section>
 
       {/* Publicidade Superior */}
-      <AdBlock slot="matches-top-banner" format="banner" />
+      <AdPlacement placement="matches-top" format="banner" />
 
       {/* Barra de Filtros */}
       <section className="toolbar p-3 p-md-4 mb-4">
@@ -208,7 +208,7 @@ export default function Matches() {
                                 {partida.golsRealA} - {partida.golsRealB}
                               </span>
                               <span className="badge px-2 py-1 my-1" style={{ fontSize: '0.62rem', background: 'rgba(0, 200, 83, 0.15)', color: '#00C853', border: '1px solid rgba(0, 200, 83, 0.3)', borderRadius: '6px' }}>
-                                Resultado Oficial
+                                Resultado Real
                               </span>
                               <button
                                 type="button"
@@ -272,7 +272,7 @@ export default function Matches() {
                   </div>
                   {isAdThreshold && (
                     <div className="col-12 my-2">
-                      <AdBlock slot={`matches-inline-banner-${index}`} format="banner" />
+                      <AdPlacement placement={`matches-inline-${index}`} format="banner" />
                     </div>
                   )}
                 </React.Fragment>
@@ -283,7 +283,7 @@ export default function Matches() {
       </section>
 
       {/* Publicidade Inferior */}
-      <AdBlock slot="matches-bottom-banner" format="banner" />
+      <AdPlacement placement="matches-bottom" format="banner" />
     </main>
   );
 }

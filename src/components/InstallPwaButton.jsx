@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { isNativePlatform } from '../services/platformService';
 
 export default function InstallPwaButton() {
   const [promptEvent, setPromptEvent] = useState(null);
@@ -57,8 +58,8 @@ export default function InstallPwaButton() {
     setShowIosInstructions(false);
   };
 
-  // Se o app já estiver instalado ou em modo standalone, oculta o botão
-  if (installed || isStandalone()) return null;
+  // Se o app já estiver instalado, em modo standalone ou na plataforma nativa, oculta o botão
+  if (isNativePlatform() || installed || isStandalone()) return null;
 
   // O botão fica visível apenas se houver o prompt de instalação disponível OU se for iOS e não standalone
   const isInstallable = !!promptEvent || (isIOS() && !isStandalone());
@@ -94,7 +95,7 @@ export default function InstallPwaButton() {
             </div>
             <h3 className="h5 font-weight-bold text-white mb-3">Adicionar à Tela de Início</h3>
             <p className="small text-muted-old mb-4" style={{ lineHeight: '1.5' }}>
-              Siga os passos abaixo para instalar o <strong>Guia da Copa 2026</strong> no seu iPhone ou iPad usando o navegador Safari:
+              Siga os passos abaixo para instalar o <strong>Palpitaria da Copa 2026</strong> no seu iPhone ou iPad usando o navegador Safari:
             </p>
             
             <div className="text-start mx-auto mb-4" style={{ maxWidth: '340px' }}>

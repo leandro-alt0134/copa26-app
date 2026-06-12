@@ -32,18 +32,24 @@ export default function Footer() {
           {/* Lado Direito: Links Institucionais e Legais */}
           <div className="col-12 col-md-6 text-md-end">
             <div className="footer-links mb-2 d-flex justify-content-center justify-content-md-end gap-3 flex-wrap">
-              <Link to="/matches" className="footer-link-item">Tabela</Link>
-              <Link to="/teams" className="footer-link-item">Seleções</Link>
-              <Link to="/predictions" className="footer-link-item">Meus Palpites</Link>
+              <Link to="/confrontos" className="footer-link-item">Tabela</Link>
+              <Link to="/" className="footer-link-item">Seleções</Link>
+              <Link to="/palpites" className="footer-link-item">Meus Palpites</Link>
+              <Link to="/agenda" className="footer-link-item">Agenda</Link>
+              <Link to="/configuracoes" className="footer-link-item">Configurações</Link>
+              <Link to="/sobre" className="footer-link-item">Sobre</Link>
+              <Link to="/suporte" className="footer-link-item">Suporte</Link>
+              <Link to="/termos" className="footer-link-item">Termos</Link>
+              <Link to="/privacidade" className="footer-link-item">Privacidade</Link>
             </div>
             
-            {/* Termos Legais de Isenção (Crucial para Apps de Palpites/Futebol) */}
+            {/* Termos Legais de Isenção */}
             <div className="legal-disclaimer small text-muted">
               <p className="mb-1">
                 &copy; {anoAtual} Palpitaria da Copa. Todos os direitos reservados.
               </p>
               <p className="legal-text-tiny mb-0">
-                Este é um simulador recreativo e gamificado. Não possui filiação, patrocínio ou vínculo comercial com a FIFA ou o comitê organizador oficial da Copa do Mundo de 2026.
+                Este é um aplicativo independente de entretenimento. Não possui afiliação, patrocínio ou endosso da FIFA, federações, seleções ou qualquer entidade organizadora da competição.
               </p>
             </div>
           </div>

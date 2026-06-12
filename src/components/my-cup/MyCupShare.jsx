@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { generateMyCupShareText, drawMyCupCardPNG } from '../../utils/myCupShare';
+import { compartilharDados } from '../../services/shareService';
+import { vibrateSuccess, vibrateError, vibrateLight } from '../../services/hapticsService';
+import { isNativePlatform } from '../../services/platformService';
 
 export default function MyCupShare({
   myCupData = {},
@@ -11,13 +14,16 @@ export default function MyCupShare({
   const shareText = generateMyCupShareText(myCupData);
 
   const handleCopy = () => {
+    vibrateLight();
     navigator.clipboard.writeText(shareText).then(() => {
+      vibrateSuccess();
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     });
   };
 
   const handleDownloadTXT = () => {
+    vibrateLight();
     const blob = new Blob([shareText], { type: 'text/plain;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -28,14 +34,33 @@ export default function MyCupShare({
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+    vibrateSuccess();
   };
 
-  const handleShareWhatsApp = () => {
-    const urlShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
-    window.open(urlShare, '_blank');
+  const handleShare = async () => {
+    vibrateLight();
+    // Em navegadores web convencionais sem suporte a Web Share API,
+    // o compartilharDados cai no fallback do Clipboard.
+    // Mas no WhatsApp Web ou Mobile Web, os usuários preferem o compartilhamento direto via link de WhatsApp.
+    // Por isso, se for Web e não tiver suporte a navigator.share, abrimos o link do WhatsApp para melhor UX.
+    if (!isNativePlatform() && !navigator.share) {
+      const urlShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+      window.open(urlShare, '_blank');
+      vibrateSuccess();
+      return;
+    }
+
+    const success = await compartilharDados({
+      title: 'Minha Projeção da Copa 2026 🏆',
+      text: shareText
+    });
+    if (success) {
+      vibrateSuccess();
+    }
   };
 
   const handleDownloadCard = (layout = 'square') => {
+    vibrateLight();
     setGenerating(true);
 
     const canvas = document.createElement('canvas');
@@ -57,8 +82,10 @@ export default function MyCupShare({
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      vibrateSuccess();
     } catch (err) {
       console.error("Erro ao gerar card PNG da Minha Copa:", err);
+      vibrateError();
       alert("Houve um erro ao renderizar o card de imagem no seu navegador. Você ainda pode compartilhar o texto do resumo!");
     } finally {
       setGenerating(false);
@@ -75,12 +102,12 @@ export default function MyCupShare({
       </p>
 
       <div className="d-flex flex-column gap-3">
-        {/* WhatsApp Share Button */}
+        {/* Share Button */}
         <button
-          onClick={handleShareWhatsApp}
+          onClick={handleShare}
           className="btn btn-whatsapp-share btn-lg py-3 w-100 text-white border-0"
         >
-          <span>💬</span> Compartilhar no WhatsApp
+          <span>{isNativePlatform() ? '📤' : '💬'}</span> {isNativePlatform() ? 'Compartilhar Projeção' : 'Compartilhar no WhatsApp'}
         </button>
 
         {/* Copy and TXT Download Buttons */}
@@ -100,7 +127,7 @@ export default function MyCupShare({
               className="btn btn-share-secondary py-3 w-100 font-weight-bold"
               style={{ minHeight: '48px', fontSize: '0.88rem' }}
             >
-              📥 Baixar TXT
+              {copied ? 'TXT Baixado' : '📥 Baixar TXT'}
             </button>
           </div>
         </div>
@@ -137,3 +164,4 @@ export default function MyCupShare({
     </article>
   );
 }
+

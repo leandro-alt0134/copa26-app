@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+@import './styles/fonts.css';
 
 :root {
   /* Novos tokens visuais consolidados para alto contraste */
@@ -2801,6 +2801,10 @@ footer {
 
 /* Mobile Overrides (max-width: 768px) */
 @media (max-width: 768px) {
+  .navbar {
+    display: none !important;
+  }
+
   /* Bottom Navigation */
   .mobile-bottom-nav {
     position: fixed;

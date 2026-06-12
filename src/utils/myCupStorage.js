@@ -1,5 +1,5 @@
-const MY_CUP_STORAGE_KEY = "copa2026_minha_copa";
-const INDIVIDUAL_STORAGE_KEY = "copa2026_palpites";
+import { getAppData, saveAppData } from '../services/storage/storageAdapter';
+import { STORAGE_KEYS } from '../services/storage/storageKeys';
 
 export const INITIAL_CUP_STATE = {
   id: "default",
@@ -30,11 +30,9 @@ export const INITIAL_CUP_STATE = {
 
 export function loadMyCupData() {
   try {
-    const data = localStorage.getItem(MY_CUP_STORAGE_KEY);
-    if (!data) return null;
-    return JSON.parse(data);
+    return getAppData(STORAGE_KEYS.MINHA_COPA, null);
   } catch (err) {
-    console.error("Erro ao carregar Minha Copa do localStorage:", err);
+    console.error("Erro ao carregar Minha Copa:", err);
     return null;
   }
 }
@@ -45,17 +43,17 @@ export function saveMyCupData(data) {
       ...data,
       updatedAt: new Date().toISOString()
     };
-    localStorage.setItem(MY_CUP_STORAGE_KEY, JSON.stringify(updatedData));
-    return updatedData;
+    const saved = saveAppData(STORAGE_KEYS.MINHA_COPA, updatedData);
+    return saved ? updatedData : null;
   } catch (err) {
-    console.error("Erro ao salvar Minha Copa no localStorage:", err);
+    console.error("Erro ao salvar Minha Copa:", err);
     return null;
   }
 }
 
 export function resetMyCupData() {
   try {
-    localStorage.removeItem(MY_CUP_STORAGE_KEY);
+    localStorage.removeItem(STORAGE_KEYS.MINHA_COPA);
     return true;
   } catch (err) {
     console.error("Erro ao resetar dados de Minha Copa:", err);
@@ -69,10 +67,7 @@ export function resetMyCupData() {
  */
 export function importFromIndividualPredictions(allMatches) {
   try {
-    const rawIndividual = localStorage.getItem(INDIVIDUAL_STORAGE_KEY);
-    if (!rawIndividual) return {};
-
-    const individualPalpites = JSON.parse(rawIndividual);
+    const individualPalpites = getAppData(STORAGE_KEYS.PALPITES, []);
     if (!Array.isArray(individualPalpites)) return {};
 
     const groupPredictions = {};
@@ -116,10 +111,7 @@ export function importFromIndividualPredictions(allMatches) {
  */
 export function importFromOfficialResults(allMatches) {
   try {
-    const cachedMatches = localStorage.getItem("copa2026_partidas_atualizadas");
-    if (!cachedMatches) return {};
-
-    const updatedMatches = JSON.parse(cachedMatches);
+    const updatedMatches = getAppData(STORAGE_KEYS.PARTIDAS_ATUALIZADAS, []);
     if (!Array.isArray(updatedMatches)) return {};
 
     const groupPredictions = {};
@@ -162,8 +154,7 @@ export function importFromOfficialResults(allMatches) {
  */
 export function saveAsIndividualPredictions(myCupData) {
   try {
-    const rawIndividual = localStorage.getItem(INDIVIDUAL_STORAGE_KEY) || "[]";
-    let individualPalpites = JSON.parse(rawIndividual);
+    let individualPalpites = getAppData(STORAGE_KEYS.PALPITES, []);
     if (!Array.isArray(individualPalpites)) individualPalpites = [];
 
     // Collect all matches from group stage predictions
@@ -217,7 +208,7 @@ export function saveAsIndividualPredictions(myCupData) {
       });
     });
 
-    localStorage.setItem(INDIVIDUAL_STORAGE_KEY, JSON.stringify(individualPalpites));
+    saveAppData(STORAGE_KEYS.PALPITES, individualPalpites);
     return true;
   } catch (err) {
     console.error("Erro ao salvar Minha Copa como palpites individuais:", err);

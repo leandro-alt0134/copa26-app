@@ -1,0 +1,8 @@
+{
+  "appId": "com.palpitaria.copa26",
+  "appName": "Palpitaria Copa 2026",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

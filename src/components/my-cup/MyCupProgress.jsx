@@ -224,7 +224,7 @@ export default function MyCupProgress({ currentStep }) {
                 fontFamily: '"Plus Jakarta Sans", sans-serif'
               }}
             >
-              Guia da Copa 2026 <span style={{ color: 'var(--primary)' }}>PRO</span>
+              Copa dos Palpites <span style={{ color: 'var(--primary)' }}>PRO</span>
             </h2>
             <p 
               style={{ 
@@ -234,7 +234,7 @@ export default function MyCupProgress({ currentStep }) {
                 lineHeight: '1.5'
               }}
             >
-              Leve sua simulação ao próximo nível com a versão premium oficial do aplicativo.
+              Leve sua simulação ao próximo nível com a versão premium independente do aplicativo.
             </p>
 
             {/* Benefit Checkmarks */}

@@ -1,81 +1,124 @@
-# Guia da Copa do Mundo 2026 (React + Vite)
+# Palpitaria da Copa 2026 (React + Vite + PWA)
 
-Este projeto é uma versão modernizada do site demonstrativo da Copa do Mundo 2026, convertida de HTML/CSS/JS estático para uma aplicação web SPA (Single Page Application) moderna em **React** construída sobre o **Vite**.
-
-## Tecnologias Utilizadas
-- **React (v19)**: Criação de interfaces baseadas em componentes funcionais e reatividade baseada em estados (`useState`, `useEffect`).
-- **Vite (v6)**: Ferramenta de build ultra-rápida e Hot Module Replacement (HMR).
-- **React Router Dom (v7)**: Sistema de roteamento dinâmico para navegação instantânea.
-- **Bootstrap (v5)**: Estilização responsiva e componentes auxiliares.
-- **HTML5 Canvas**: Geração dinâmica de cards de palpites em imagem PNG no lado do cliente.
+Este projeto é uma plataforma de simulação, palpites e guia informativo independente do Mundial de Futebol 2026. A aplicação foi migrada de arquivos HTML estáticos para uma SPA (Single Page Application) moderna em **React 19** e **Vite 6**, totalmente preparada para produção com conformidade jurídica, segurança de APIs e recursos de PWA avançados.
 
 ---
 
-## Estrutura do Projeto
-O projeto está organizado da seguinte forma:
+## 🚀 Novidades e Blindagem de Produção
 
-- `/public`: Contém os assets estáticos que continuam com referências estáticas intactas:
-  - `assets/`: Imagens de fundo, logos e ilustrações da Copa 2026.
-  - `data/`: Arquivos JSON de dados (`selecoes.json`, `partidas.json`, `grupos.json`).
-  - `escudos/`: Escudos oficiais de cada país em SVG.
-  - `flags/`: Bandeiras oficiais para o fundo dos cards.
-  - `square-flags/`: Bandeiras em proporção quadrada para as tabelas e comparadores.
-- `/src`: Código-fonte da aplicação React:
-  - `components/`: Componentes globais e reutilizáveis:
-    - `Navbar.jsx`: Menu com indicador de rota ativa.
-    - `Footer.jsx`: Rodapé com textos dinâmicos de acordo com a rota ativa.
-    - `Countdown.jsx`: Relógio de contagem regressiva em tempo real para a abertura.
-    - `BackToTop.jsx`: Botão flutuante para subir a tela em dispositivos móveis.
-  - `pages/`: Páginas que compõem cada rota da aplicação:
-    - `Teams.jsx`: Guia visual de seleções com busca avançada, filtros confederativos, ordenação múltipla, modal de ampliação de escudos e comparador estatístico de 2 times com barras de progresso.
-    - `Groups.jsx`: Tabelas de pontuação por grupo, chaveamento eliminatório (de 16-avos a final) com carrossel dinâmico e guia informativo de estádios.
-    - `Matches.jsx`: Agenda de confrontos com filtragem por grupo e rodada, com direcionamento para palpites.
-    - `Predictions.jsx`: Calculadora de palpites contendo quiz de 5 perguntas, formulário de placar final, salvamento em `localStorage`, exportação em imagem PNG gerada via Canvas, download em arquivo TXT e compartilhamento direto no WhatsApp.
-  - `App.jsx`: Configuração central das rotas (`BrowserRouter`).
-  - `index.css`: Folha de estilo CSS global com tokens `:root` e estilos comuns.
-  - `main.jsx`: Ponto de entrada que carrega os estilos globais e monta a árvore React.
-- `_backup_old_static/`: Cópia de segurança dos arquivos estáticos originais pré-migração.
+Para preparar o PWA para submissão e publicação como aplicativo móvel (ex: Capacitor/Cordova), a aplicação passou por uma rigorosa rodada de otimização de segurança, acessibilidade, privacidade e integridade estrutural:
+
+1. **Branding e Isenção Jurídica**:
+   - Todas as menções e termos que sugeriam oficialidade do aplicativo em relação à FIFA ou ao comitê organizador foram removidos.
+   - Foram implementados avisos claros de isenção de responsabilidade no rodapé e telas estratégicas.
+   - Criadas rotas e páginas obrigatórias de conformidade com a LGPD e políticas das lojas: **Privacidade**, **Termos de Uso**, **Suporte** e **Sobre**.
+
+2. **Blindagem e Isolação de Chaves de API**:
+   - A chave privada da API (`VITE_SOCCER_API_KEY`) foi completamente desacoplada do código compilado no navegador.
+   - Criou-se um cliente de rede seguro `src/services/footballApiClient.js` que se comunica via proxy utilizando a variável `VITE_PUBLIC_API_BASE_URL` com controle de timeout inteligente de 5 segundos.
+   - Implementado fallback offline transparente para garantir o carregamento de dados mockados em caso de falta de conexão.
+
+3. **Armazenamento Versionado e Resiliente (`storageAdapter.js`)**:
+   - Centralização e encapsulamento de todas as escritas e leituras do `LocalStorage`.
+   - Implementação de um validador de schemas com **controle de versão (1.0.0)** e migrações transparentes de dados antigos.
+   - Mecanismos de contenção de erros de cota excedida (QuotaExceededError) e parseamento resiliente de strings JSON corrompidas.
+
+4. **Painel de Configurações do Sistema (`/configuracoes`)**:
+   - Diagnóstico em tempo real do status de conexão à internet.
+   - Ferramentas de backup: **Exportar palpites em JSON** e **Importar palpites** com validação de chaves.
+   - Botão de wipeout seguro (limpar armazenamento e configurações).
+
+5. **Notificação de Atualização PWA Glassmorphism**:
+   - O Service Worker foi configurado em modo de notificação (`registerType: 'prompt'`).
+   - Um prompt visual elegante (`PwaUpdatePrompt.jsx`) surge notificando o usuário sobre novas atualizações disponíveis com opção de recarga rápida e segura.
+
+6. **Fontes 100% Locais para Funcionamento Offline**:
+   - Substituição de importações externas do Google Fonts pelo carregamento local do arquivo de fonte **Plus Jakarta Sans** via `@font-face` em `/src/styles/fonts.css` para evitar Cumulative Layout Shift (CLS).
 
 ---
 
-## Como Rodar o Projeto
+## 🛠️ Tecnologias Utilizadas
+- **React (v19.2.6)**: Componentes funcionais reativos.
+- **Vite (v6.0.12)**: Servidor de desenvolvimento rápido e bundler.
+- **React Router Dom (v7.15.1)**: Roteador declarativo para navegação instantânea.
+- **Bootstrap (v5.3.8)**: Grid layout e utilitários de espaçamento responsivos.
+- **Vite Plugin PWA (v1.3.0)**: Suporte PWA, manifesto configurado e service worker.
+- **HTML5 Canvas**: Geração de cards de palpites programáticos e agenda de transmissões pixel-perfect sem overlaps.
 
-Siga os passos abaixo para executar o projeto em sua máquina local:
+---
 
-### 1. Instalar as Dependências
-Abra o terminal no diretório do projeto e execute:
+## 📁 Estrutura do Projeto
+- `docs/`: Documentos de arquitetura e conformidade legal.
+  - [LEGAL_ASSETS_REVIEW.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/LEGAL_ASSETS_REVIEW.md)
+  - [PRIVACY_DATA_MAP.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/PRIVACY_DATA_MAP.md)
+  - [TECH_STACK.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/TECH_STACK.md)
+  - [FONTS.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/FONTS.md)
+  - [DATA_UPDATE_PROCESS.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/DATA_UPDATE_PROCESS.md)
+  - [RELEASE_PROCESS.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/RELEASE_PROCESS.md)
+  - [CAPACITOR.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/CAPACITOR.md)
+  - [ANDROID_RELEASE_CHECKLIST.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/ANDROID_RELEASE_CHECKLIST.md)
+  - [IOS_RELEASE_CHECKLIST.md](file:///c:/Projetos/Copa%202026/copa26-app_v1/docs/IOS_RELEASE_CHECKLIST.md)
+- `src/`: Código fonte.
+  - `components/`: UI (Navbar, Footer, ErrorBoundary, PwaUpdatePrompt).
+  - `pages/`: Telas principais (Teams, Groups, Matches, Predictions, TvSchedule, Settings, Privacy, Terms, Support, About, NotFound).
+  - `services/`: Lógicas de storage (`storageAdapter.js`) e API (`footballApiClient.js`).
+  - `styles/`: Fontes e CSS específicos.
+
+---
+
+## ⚙️ Variáveis de Ambiente (.env)
+
+Copie o arquivo de exemplo correspondente ao seu ambiente e configure a URL do seu proxy de futebol:
+```bash
+cp .env.example .env.local
+```
+Edite `.env.local` definindo:
+```env
+VITE_PUBLIC_API_BASE_URL=https://api-proxy.seudominio.com
+```
+
+---
+
+## 💻 Executando o Projeto
+
+### Instalação de dependências:
 ```bash
 npm install
 ```
 
-### 2. Rodar em Ambiente de Desenvolvimento (com Hot Reload)
-Para iniciar o servidor local com recarregamento instantâneo na edição do código:
+### Rodar servidor local de desenvolvimento:
 ```bash
 npm run dev
 ```
-O console exibirá o endereço local (geralmente `http://localhost:5173`). Abra esta URL no seu navegador.
 
-### 3. Compilar para Produção (Build)
-Para gerar os arquivos otimizados e minificados para deploy na pasta `/dist`:
+### Compilar para Produção (PWA pronto):
 ```bash
 npm run build
 ```
 
-### 4. Visualizar a Versão de Produção Localmente (Preview)
-Após gerar a build, você pode simular a execução de produção localmente rodando:
+### Rodar Preview Local do Build:
 ```bash
 npm run preview
 ```
 
-### 5. Resolução de Caching e PWA (Limpeza do Service Worker)
+### 📱 Comandos para Builds e Testes Nativos (Capacitor)
 
-Como o projeto utiliza o `vite-plugin-pwa` para suporte a PWA Offline, os arquivos de estilo e scripts são mantidos sob cache agressivo do navegador. Se você realizar uma compilação de produção (`npm run build`) e, ao rodar o preview (`npm run preview`), o layout parecer desalinhado ou com contrastes antigos, siga os passos abaixo para limpar o cache:
+Certifique-se de compilar o aplicativo antes de sincronizar as plataformas nativas:
 
-1. **Abra o DevTools** no navegador (pressione `F12` ou clique com o botão direito e selecione *Inspecionar*).
-2. Vá até a aba **Application** (ou *Aplicativo*).
-3. No painel esquerdo, navegue até **Service Workers**.
-4. Clique em **Unregister** (ou *Desativar/Remover registro*) correspondente ao service worker da porta local.
-5. Em seguida, acesse **Storage** (ou *Armazenamento*) e clique em **Clear site data** (ou *Limpar dados do site*).
-6. Force um recarregamento completo da página usando **Ctrl + F5** (ou **Cmd + Shift + R** no macOS).
+```bash
+# Compilar e sincronizar ativos do React/Vite com Android e iOS
+npm run sync:native
 
-Isso garantirá que o preview e testes locais de produção utilizem os arquivos atuais da pasta `/dist`.
+# Sincronizar especificamente o Android
+npm run sync:android
+
+# Sincronizar especificamente o iOS (requer macOS)
+npm run sync:ios
+
+# Abrir o Android Studio para depuração e compilação do APK/AAB
+npm run open:android
+
+# Abrir o Xcode (requer macOS) para depuração e compilação IPA
+npm run open:ios
+```
+

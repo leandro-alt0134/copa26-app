@@ -162,13 +162,13 @@ export function desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout = 'sq
   ctx.fillStyle = '#FFD166';
   ctx.font = '900 16px "Plus Jakarta Sans", "Segoe UI", sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('🏆  COPA DO MUNDO FIFA 2026  🏆', width / 2, headerY + 29);
+  ctx.fillText('🏆  COPA DOS PALPITES 2026  🏆', width / 2, headerY + 29);
 
   // Título do Palpite
   ctx.fillStyle = '#F8FAFC';
   ctx.font = `900 ${isStories ? '48px' : '34px'} "Plus Jakarta Sans", sans-serif`;
   const titleY = isStories ? 210 : 115;
-  ctx.fillText('MEU PALPITE OFICIAL 📝', width / 2, titleY);
+  ctx.fillText('MEU PALPITE INDEPENDENTE 📝', width / 2, titleY);
 
   // Badge de Grupo e Rodada
   const groupBadgeY = isStories ? 280 : 140;

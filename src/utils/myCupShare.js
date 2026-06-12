@@ -128,7 +128,7 @@ export function drawMyCupCardPNG(ctx, data, selecoes = [], layout = "square") {
   // Subtítulo CAMPEÃO MUNDIAL
   ctx.fillStyle = "#FFD166";
   ctx.font = `900 ${isStories ? "28px" : "18px"} "Plus Jakarta Sans", sans-serif`;
-  ctx.fillText("CAMPEÃO DA COPA DO MUNDO FIFA 2026", width / 2, champY + (isStories ? 285 : 195));
+  ctx.fillText("CAMPEÃO DO MUNDIAL SIMULADO 2026", width / 2, champY + (isStories ? 285 : 195));
 
   // 6. Placar da Final e Posicionamento (Vice e 3º)
   const statsY = isStories ? 770 : 475;

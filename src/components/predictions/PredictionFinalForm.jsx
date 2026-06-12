@@ -19,7 +19,7 @@ export default function PredictionFinalForm({
       {partidaAtual.encerrada && (
         <div className="text-center mb-4">
           <span className="badge px-3 py-2" style={{ fontSize: '0.82rem', background: 'rgba(0, 200, 83, 0.15)', color: '#00C853', border: '1px solid rgba(0, 200, 83, 0.3)', borderRadius: '8px' }}>
-            ⚽ Resultado Oficial: {partidaAtual.golsRealA} x {partidaAtual.golsRealB}
+            ⚽ Resultado Real: {partidaAtual.golsRealA} x {partidaAtual.golsRealB}
           </span>
         </div>
       )}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Countdown from '../components/Countdown';
+import { vibrateSuccess, vibrateWarning, vibrateError, vibrateLight } from '../services/hapticsService';
 
 // Components
 import MyCupIntro from '../components/my-cup/MyCupIntro';
@@ -19,6 +20,8 @@ import {
   importFromOfficialResults,
   saveAsIndividualPredictions
 } from '../utils/myCupStorage';
+import { getAppData } from '../services/storage/storageAdapter';
+import { STORAGE_KEYS } from '../services/storage/storageKeys';
 import {
   calculateGroupStandings,
   sortStandings,
@@ -98,25 +101,18 @@ export default function MyPredictionCup() {
   }, []);
 
   // Check if user has individual predictions saved in their browser
-  const hasIndividualPalpites = !!localStorage.getItem("copa2026_palpites");
+  const hasIndividualPalpites = getAppData(STORAGE_KEYS.PALPITES, []).length > 0;
 
   // Check if we have cached official results in the browser
-  const cachedMatchesRaw = localStorage.getItem("copa2026_partidas_atualizadas");
-  let hasOfficialResults = false;
-  try {
-    if (cachedMatchesRaw) {
-      const cachedList = JSON.parse(cachedMatchesRaw);
-      hasOfficialResults = Array.isArray(cachedList) && cachedList.some((p) => p.encerrada);
-    }
-  } catch (e) {
-    console.error(e);
-  }
+  const cachedMatches = getAppData(STORAGE_KEYS.PARTIDAS_ATUALIZADAS, []);
+  const hasOfficialResults = Array.isArray(cachedMatches) && cachedMatches.some((p) => p.encerrada);
 
   // 1. Action: Start New Simulation
   const handleStartNew = () => {
     if (cupState.currentStep !== "intro" && !window.confirm("Isso apagará sua simulação atual. Deseja continuar?")) {
       return;
     }
+    vibrateWarning();
     resetMyCupData();
     
     // Rebuild clean group stage state
@@ -184,6 +180,7 @@ export default function MyPredictionCup() {
     setCupState(newState);
     saveMyCupData(newState);
     setActiveGroup("A");
+    vibrateSuccess();
     alert("Palpites importados com sucesso! Revise e complete os placares de cada grupo.");
   };
 
@@ -209,6 +206,7 @@ export default function MyPredictionCup() {
     setCupState(newState);
     saveMyCupData(newState);
     setActiveGroup("A");
+    vibrateSuccess();
     alert("Resultados oficiais importados com sucesso! Revise as tabelas e preencha as partidas restantes.");
   };
 
@@ -303,6 +301,7 @@ export default function MyPredictionCup() {
     });
 
     if (hasMissing) {
+      vibrateError();
       alert("Por favor, preencha todos os jogos da fase de grupos antes de avançar.");
       return;
     }
@@ -332,6 +331,7 @@ export default function MyPredictionCup() {
 
     setCupState(newState);
     saveMyCupData(newState);
+    vibrateSuccess();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -403,6 +403,7 @@ export default function MyPredictionCup() {
 
     setCupState(newState);
     saveMyCupData(newState);
+    vibrateSuccess();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -550,6 +551,7 @@ export default function MyPredictionCup() {
     const thirdMatch = cupState.knockout.thirdPlace;
 
     if (!finalMatch || finalMatch.vencedor === null || finalMatch.placarA === "" || finalMatch.placarB === "") {
+      vibrateError();
       alert("Por favor, preencha a final antes de coroar o campeão.");
       return;
     }
@@ -576,6 +578,7 @@ export default function MyPredictionCup() {
 
     setCupState(newState);
     saveMyCupData(newState);
+    vibrateSuccess();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -583,8 +586,10 @@ export default function MyPredictionCup() {
   const handleSaveToIndividual = () => {
     const success = saveAsIndividualPredictions(cupState);
     if (success) {
+      vibrateSuccess();
       alert("Sucesso! Os palpites desta Copa foram sincronizados com seus palpites individuais da página inicial.");
     } else {
+      vibrateError();
       alert("Houve um erro ao salvar como palpites individuais.");
     }
   };

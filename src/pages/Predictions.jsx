@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Countdown from '../components/Countdown';
+import { vibrateSuccess, vibrateWarning, vibrateError, vibrateLight } from '../services/hapticsService';
+import { compartilharDados } from '../services/shareService';
+import { isNativePlatform } from '../services/platformService';
 
 // Subcomponentes de UI
 import PredictionSteps from '../components/predictions/PredictionSteps';
@@ -31,7 +34,8 @@ import {
   desenharImagemArredondada,
   codigoParaEmojiBandeira 
 } from '../utils/predictionShare';
-import AdBlock from '../components/AdBlock';
+import AdPlacement from '../components/ads/AdPlacement';
+import { recordRelevantAction, triggerInterstitialWithFrequency } from '../services/adFrequencyService';
 
 export default function Predictions() {
   const [partidas, setPartidas] = useState([]);
@@ -253,20 +257,27 @@ export default function Predictions() {
 
     const sucesso = salvarPalpite(palpite);
     if (sucesso) {
+      vibrateSuccess();
       setPalpitesSalvos(carregarPalpites());
       setPalpiteSalvoSucesso(true);
       alert(`Palpite para ${partidaAtual.selecaoA} x ${partidaAtual.selecaoB} salvo com sucesso!`);
       
+      // Registrar ação relevante e tentar acionar intersticial nativo
+      recordRelevantAction();
+      triggerInterstitialWithFrequency();
+
       setTimeout(() => {
         document.getElementById('secao-historico')?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     } else {
+      vibrateError();
       alert('Infelizmente ocorreu um erro ao salvar o palpite.');
     }
   };
 
   const handleLimparPalpites = () => {
     if (window.confirm('Tem certeza de que deseja limpar todos os seus palpites salvos?')) {
+      vibrateWarning();
       limparTodosPalpites();
       setPalpitesSalvos(carregarPalpites());
       alert('Histórico de palpites limpo com sucesso!');
@@ -324,12 +335,30 @@ export default function Predictions() {
     document.body.removeChild(link);
   };
 
-  const compartilharNoWhatsApp = () => {
+  const compartilharNoWhatsApp = async () => {
+    vibrateLight();
     // Se o usuário clicar no botão geral de compartilhar todos os palpites
     const texto = gerarTextoPalpites();
     if (!texto) return;
-    const urlShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
-    window.open(urlShare, '_blank');
+
+    if (!isNativePlatform() && !navigator.share) {
+      const urlShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`;
+      window.open(urlShare, '_blank');
+      vibrateSuccess();
+      recordRelevantAction();
+      triggerInterstitialWithFrequency();
+      return;
+    }
+
+    const success = await compartilharDados({
+      title: 'Meus Palpites da Copa 2026 🏆',
+      text: texto
+    });
+    if (success) {
+      vibrateSuccess();
+      recordRelevantAction();
+      triggerInterstitialWithFrequency();
+    }
   };
 
   const exportarPalpitesJSON = () => {
@@ -370,6 +399,7 @@ export default function Predictions() {
   };
 
   const gerarImagemCardPalpite = (matchId, tPalpite, layout = 'square') => {
+    vibrateLight();
     const palpite = palpitesSalvos.find((p) => p.matchId === matchId && p.tipoPalpite === tPalpite);
     if (!palpite) return;
 
@@ -399,6 +429,9 @@ export default function Predictions() {
         desenharCardPNG(ctx, imgA, imgB, palpite, selecoes, layout);
         const url = canvas.toDataURL('image/png');
         iniciarDownload(url, palpite, layout);
+        vibrateSuccess();
+        recordRelevantAction();
+        triggerInterstitialWithFrequency();
       } catch (err) {
         console.warn("Falha de CORS/Taint com arquivos SVG. Utilizando fallback de emojis para o card...", err);
         const canvasFallback = document.createElement('canvas');
@@ -410,7 +443,11 @@ export default function Predictions() {
         try {
           const urlFallback = canvasFallback.toDataURL('image/png');
           iniciarDownload(urlFallback, palpite, layout);
+          vibrateSuccess();
+          recordRelevantAction();
+          triggerInterstitialWithFrequency();
         } catch (errFallback) {
+          vibrateError();
           console.error("Erro fatal ao gerar card de imagem:", errFallback);
           alert("Infelizmente ocorreu um erro ao gerar a imagem no seu navegador. Você pode baixar o arquivo de texto para compartilhar.");
         }
@@ -450,7 +487,7 @@ export default function Predictions() {
       </section>
 
       {/* Publicidade Superior */}
-      <AdBlock slot="predictions-top-banner" format="banner" />
+      <AdPlacement placement="predictions-top" format="banner" />
 
       {/* Seletor de Confronto */}
       <MatchPicker 
@@ -530,7 +567,7 @@ export default function Predictions() {
 
       {/* Publicidade Intermediária */}
       {partidaAtual && (
-        <AdBlock slot="predictions-middle-rectangle" format="rectangle" />
+        <AdPlacement placement="predictions-middle" format="rectangle" />
       )}
 
       {/* Sugestão de Palpite e Formulário Final */}
@@ -558,7 +595,7 @@ export default function Predictions() {
       )}
 
       {/* Publicidade Inferior */}
-      <AdBlock slot="predictions-bottom-banner" format="banner" />
+      <AdPlacement placement="predictions-bottom" format="banner" />
 
       {/* Estatísticas Pessoais */}
       <PredictionStats palpites={palpitesSalvos} />

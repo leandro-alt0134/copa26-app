@@ -1,7 +1,4 @@
-const API_URL = 'https://v3.football.api-sports.io/fixtures';
-const API_KEY = import.meta.env.VITE_SOCCER_API_KEY;
-const LEAGUE_ID = import.meta.env.VITE_LEAGUE_ID || 1; // ID 1 é a Copa do Mundo na API-Football
-const SEASON = import.meta.env.VITE_SEASON || 2026;
+import { fetchRealResultsFromProxy } from '../services/footballApiClient';
 
 // Dicionário De/Para para traduzir os nomes retornados pela API (Inglês) para os nomes em Português do projeto
 const DE_PARA_SELECOES = {
@@ -65,44 +62,24 @@ const DE_PARA_SELECOES = {
  */
 export async function buscarResultadosReais() {
   try {
-    if (!API_KEY) {
-      console.warn('VITE_SOCCER_API_KEY não configurado.');
-      return [];
-    }
+    const resultados = await fetchRealResultsFromProxy();
+    if (!resultados || resultados.length === 0) return [];
 
-    const response = await fetch(`${API_URL}?league=${LEAGUE_ID}&season=${SEASON}`, {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-host': 'v3.football.api-sports.io',
-        'x-rapidapi-key': API_KEY
-      }
-    });
-
-    if (!response.ok) throw new Error('Falha ao buscar dados da API externa');
-    
-    const data = await response.json();
-    if (!data || !data.response) return [];
-    
-    // Filtra e mapeia apenas as partidas que já terminaram (FT = Full Time, AET = Extra Time, PEN = Pênaltis)
-    const partidasTerminadas = data.response.filter(item => 
-      item.fixture && item.fixture.status && ['FT', 'AET', 'PEN'].includes(item.fixture.status.short)
-    );
-
-    return partidasTerminadas.map(item => {
-      const nameA = item.teams.home.name;
-      const nameB = item.teams.away.name;
+    return resultados.map(item => {
+      const nameA = item.selecaoA;
+      const nameB = item.selecaoB;
       
       return {
         selecaoA: DE_PARA_SELECOES[nameA] || nameA,
         selecaoB: DE_PARA_SELECOES[nameB] || nameB,
-        golsA: item.goals.home,
-        golsB: item.goals.away,
-        status: item.fixture.status.short,
-        rodada: item.league.round // Ex: "Group Stage - 1" ou "Round of 32"
+        golsA: item.golsA,
+        golsB: item.golsB,
+        status: item.status || 'FT',
+        rodada: item.rodada
       };
     });
   } catch (error) {
-    console.error('Erro na integração com a API de Futebol:', error);
+    console.error('Erro ao mapear resultados reais:', error);
     return [];
   }
 }
